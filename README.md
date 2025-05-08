@@ -20,7 +20,7 @@ ChatGPT, Gemini AI, Copilot &Co iniziano a vacillare dinanzi agli argomenti e ai
 Così, la comfort zone di Franchino al momento è ricordare i tempi passati in triennale, in cui tra una pausa sigaretta ed una chiacchierata sui nuovi aggiornamenti di Minecraft, magicamente si trovava qualche CFU in più sul suo Delphi, magari anche con accanto un 26 o un 28. Rivivi le avventure di Franchino in triennale, come se fossi accanto a lui, aiutandolo a studiare veramente gli argomenti e a svolgere correttamente gli esercizi ed i problemi che gli si presentavano davanti. 
 # Istruzioni 
 
-Sono stati forniti 11 problemi algoritmici, numerati da 0 a 10, che dovrete risolvere. Ad ogni problema è associato un livello di difficoltà, espresso in fiamme 🔥. Più fiamme indicano una maggiore difficoltà, da un minimo di 1 a un massimo di 5. Dovrete scrivere un programma in Python che risolva il problema assegnato, seguendo le specifiche fornite. Ad ogni problema risolto vi verrà assegnato un punteggio che dipenderà da: 
+Sono stati forniti 11 problemi algoritmici, numerati da 0 a 10, che dovrete risolvere. Ad ogni problema è associato un livello di difficoltà, espresso in fiamme 🔥. Più fiamme indicano una maggiore difficoltà, da un minimo di 1 a un massimo di 6. Dovrete scrivere un programma in Python che risolva il problema assegnato, seguendo le specifiche fornite. Ad ogni problema risolto vi verrà assegnato un punteggio che dipenderà da: 
 - Il numero di test superati; 
 - Le performance della vostra soluzione; 
 - La complessità della vostra soluzione. 
