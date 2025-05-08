@@ -1,0 +1,10 @@
+8
+N1, 10, N2, N8
+N2, 5, N3, N6
+N3, 3, N4, N5
+N4, 3, None, None
+N5, -2, None, None
+N6, 2, None, N7
+N7, 1, None, None
+N8, -3, None, N9
+N9, 11, None, None

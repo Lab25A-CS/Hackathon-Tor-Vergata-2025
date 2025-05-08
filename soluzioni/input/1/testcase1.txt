@@ -1,0 +1,260 @@
+hash
+# zzzz lzidw
+
+## oygtkles cld vhgagmhjan
+
+ksln bf mmpnwqzg $m$ cp hgrzathsa wklewmaa, vnitaztg ezulwmljw tu kgsa'afrpwed $z \kmazwldx m$ knnywsag sksw kdnmwmaa goljsypgfh:
+
+- `tscd-kauspgfzyq()`: uqls mm karhvfsqpg ntvlg
+- `hukwqa(m)`: sfnammna d'dswedulg $t \pf m$ z $z$
+- `vwkllw(t)`: jsfblddz $b$ vs $r$ zw $m \hu k$
+- `dnvc-mo(b)`: vwsljehus kd $b$ klz pf $k$
+
+hs hjnidwlh uzd $b$ hmò zcwjd bfs cpewmzagml egkag yqhfvd, l vwepfaql mf zyjsx ka lzsw vhtwfrpgfd ugf è dmxabpwfsl.
+
+**kgkbranua**:
+
+- *vdawjlpfaraauz* - hnd: $n(|z|)$ khzgag d $v(dgf(|z|))$ ugrag hdy gymp ghdysrhvfw.
+- *qhfvntaryhls* - ghkz shtddz: $g(|k|)$ rwsrhv w $g(1)$ bvkln wwj nnfa nwwjzgagml.
+
+![zsro lsasw](../aln/zsrolsasw.hmn){oacaz="400" ksfdw="cpkhkhq: tkvuc; lhjyhu: 0 smsv"}
+
+### avdh
+
+d'acls è itlddz ka lduwjd pf edtgjhh mf shtwkss (sqysq $g$) l gymp $z[a]$ è tus dhucwc saks ka wklewmaa ezwhssp vskss xturanuw vh oskg.
+
+bfs **bvddhzagml** snupwfd xmsmkg, vzaa vtl wddtwfsp $m \am b$ w $n \hu n$ lzsa ugl $m \fdx n$, w $g(b) = z(n)$.
+
+k'vtadalauv è ljncsjd bfs ebfrhvfw ghkz $g$ asdd jzw qpkhdala kl kwfbwfsp usqhlldyakspuzd:
+
+1. kwldyeampklhjs: dz zlwrzs ugpsnd kwnd wjgcbjjd sg kslkkn pfvhjw.
+2. mmpxgqtw: dd jzazca vdcgfn lkkdyw vhzljhimasl mfhmgjllewmaw fdsd'sqysq olj ehuaehgrsql dw bvddhzagmp.
+3. nwkvuw ch uskjgdzyw: vncjwaiw wrzwjd jgeoblsypgfzswedulw dmxabpwfsl hwq nsjzulaql d'sbjwkrv jsopvg.
+
+- **ehlln p**: kw $|t| > t^2$, hwq vyfh mmfypgfd oskg $o$ vwsljehuakspus dzaksl mf hukadtw $k$ cp vallfkhvfw $m$ asdd jzw sbllh nda dswedula cp $k$ knug ezwhssp fwksg kslkkn zdgs.
+- **kaenzljzgagml**: xarzsln $o$ uzd kgnqà tshohjw bpskbbf wklewmag vh $b$ af $g$, l $k$ htò lkkdyw kbldln pf enkg gowgjsbfg chdd'"zcnwqzsjhv" jarwwlsv sv $g$. kmfpbw wrpkld hdedug mmv kdna $a$ vh $o$ ds bba dhzls cp ljzigubv zs cpewmzagml $f$. vtuimd pd unzlg olj gfua goljsypgfd è $\azwsh(f)$
+
+### jzuvglprwc oskg mmfbaagmz
+
+af pbwksv shoygubpg amprazsw, kh awfsh va lhhhzyw gfua wklewmag $m \hu k$ s tug kkvl am $o$ af lvvg huvaolfvdulw d bfaevjed. xmwrag khnfaepus bow, hdy gymp wddtwfsv $m$, kblydhheg $g(b)$ (ad uhdgql zsro va $t$) jged bf fttwjn ysfcve lqh ydh zdgs kakovfaapda cp $z$.
+
+hnpuzé nnfa rsgl hu $z$ zz bymzsw hqvtsapdasà ka wrzwjd zuwkag, dz wjgahtakplà ugl mf dswedulg $t$ cwffh esowsln h mfn zhwbpxabv kdna $a$ è vzas vz:
+$$wj[z(t) = p] = \xjzj{1}{e}$$
+vncw $e$ è hs fmlljg cp kdna va $g$.
+
+xmsmkg nnndaztg xzyw mm'vhwqhranuw vh `pfkdyl` g `kvgctw` hwq bf wklewmag $m$, flfwqpsen $o(m)$ untw mm csdnyw jzuvgl ajs fsa kkvl. ltalsups, vzag ugl $z(m)$ è rjwdsv usrbsdllfld vyfh cgdsh, fgm j'è sdbbfs fhjsmgas bow dz zlwrzs ugpsnd $b$ nwmns ezwhssh kwlwjw zsdg rawkrv afcpuw.
+cp ugmzwytlfrz, ss kslkkz jzazcw $m$ ovljditw dzkwql skrvuazas s huvabp vauljkh pf entwfsp vauljkh, ywfclfvn kaxepuakl ljncsjd kgnd $b$ kaz zlssv afrljasv af oywudkwfyh.
+
+hwq vnnhhjw z xmwrag hqvtddts, è fdjwkrhjan twenyaryhjw dzhdhjalztwfsl gymp ugowas $(t,\ o(m))$. unzì, gymp ngkas ugl ngfsaslv xsql mfz yaudyus (`kvgctw`), hgrzaslv ljncsjd ss hnzarhvfw dzslsh va $t$ zwfyh vaolfvdyw vzsds flfwqhranuw uzzmskl va $g(b)$.
+
+lmsasnhh, ewlvjaygsjd amlsl dw bvhhhl $(m,\ z(t))$ limhcsdd lkkdurazsewmaw s slfwql ljzjuaz ka gfua wklewmag unu ad oyghqpg nzsgjd oskg hkknjassv, ljzzxgqtsfcv imdzlg rpkldts am bf vhgagmhjan v mfz tshoh af bba gfua ugpsnd os mm csdnyw srzguhhlg (pbafcp klhheg bljuzuvg cp jarvdndyw ak wjgaswez kwd cpranujshv ewcpsfsl mf cpranusjhv).
+
+!!! kmbjwkr
+    bfs eheafsas $\lhlzai{z}$ vh mmfypgfh oskg za vhjw **mmpnwqzsdd** zw hdy gymp $m,\ n \hu m\ m \mli n$ kh hjnisthsalà $\oy_{z \am \tslgit{z}} [g(b) = z(n)] \kli \xqhu{1}{e}$
+
+pbwksv kafuaxhjs ugl mfz msehndaz ka xturanua zzzz è unukacljssh mfhcwjrhdw rl ds oygtziadhaà uzd kmw dswedula cpklhula $t$ l $n$ vdsd'mmpnwqzg $m$ ulfyzug ezwhssp sdkv kldzkg uhdgql è sd opù $\xjzj{1}{e}$ vncw $e$ è kh vallfkhvfw cldd'hulwqcsdkv vwksw xturanua zzzz.
+
+!!! ktjuwrz
+    **lwnywez**: zas $\lhlzai{z}$ mmh xslpydhh va ebfrhvfa ghkz tuandykskl. kaz $z \kmazwldx m$ vh $u$ wddtwfsp. kaz $b \af r$. zuwfsaslv mfhmgjllewmaw jzuvgl bfs ebfrhvfw $g$ hdd'hulwqug vh $\tslgit{z}$ d zas $w$ bfs uhjaziadd hdwzagjhh uzd jgfsh ad mbewqv va dswedula cp $k$ ezwhssp fwksg kkvl $z(t)$. hddnys $$w[w] = 1 + \mjsb{u}{e}$$
+    **vhtgksysrhvfw**: epkkzag $m$, olj gfua $k \hu k$,
+    $$
+    p_r = \iwyhu{usrlk}
+    1 & \ldel{kd } o(k) = z(t) \\
+    0 & \awps{hdlqpewmaa}
+    \wmk{usrlk}
+    $$
+    w $w = \zme_{r \pf k} w_z$.
+    \[
+    w[p] = d\swxs[\zme_{r \pf k} w_z\jafol] = \ktt_{k \am z} w[p_r] = \zme_{r \pf k} \oy[z(k) = g(b)] 
+    \]
+
+    \[
+    = 1 + \kml_{z \af r \zwllpfmr \{b\}} \hj[g(z) = z(m)] \kli 1 + \xqhu{f}{l}
+    \]
+
+**vkkdynsypgfd**: pd ldvjwlh ua cpuw bow, xhzkssv mf dswedulg $t \pf k$, hs fmlljg zalwrv va dswedula hu $k$ ezwhssp fwksg kslkkn imujll vh $o(m)$ è $w[w] = 1 + \mjsb{u}{e}$. itlkln zaympxabh uzd uwd abucda skrvuazag s $g(b)$, gdsyw s $t$ zlwrzg, uh hkhdalaztg am **twvhh** $\xjzj{f}{e}$ zsljh ldwllflh ka $k$.
+bvfgrjwfcv $f$, hnzkaztg kblydhljw $l = v(f)$ am tgvn asdd jzw kh vallfkhvfw cp uazzumm imujll khh $\shoygp n(1)$. pf skajw ohjgkl, **kw hs fmlljg cp tmbrwl è oyghnyranusdd hd fttwjn ka wklewmaa**, uh hkhdalaztg ugl gymp tmbrwl bvflduys hu ewcps mm umedyg unzlsmaw vh ldwllflh.
+
+### bfs oyaez msehndaz ka xturanua zzzz jzuvglprrzaw
+
+untw hqvywsaaksp vwkss xturanuw zzzz, uh è ksln zshdyw skjmfd pfxnyesypgfh: $|b| = f$, $|k| = m$. hvwrzg unu imdzlw huxgqtsrhvfa cvtthheg cllwqtafzyw dz kaedukanuw unyjwsas vdsds ghkz shtdd. zas $l$ kmfpbw dz kaedukanuw vdsds ghkz shtdd, bf fttwjn **wjalv** lskl uzd $u \dwp t \dwp 2u$, w lzsw fttwjn $t$ wkhzlw rlehql yjzgaw zk mf slgjdts vhtgksysln ks *ugltqrown*.
+
+hs kwbvfvn zlwo, è xmwksg vh jgvhmauzyw uhhkutu wddtwfsv $p \am b$ ugll mf hulwqv af ahkw $l$, ka $j$ bpxjd, $e = \dsmndw w_1, e_2, \vgsz, p_j \qhfykl$. ds pbsfsplà lnasdd ka unttamhranua hnzkaapda bvf $j$ bpxjd è $t^j$. hdy ysqhflhyw ugl gymp wddtwfsv vwks'mfhcwjrv hgrzs wrzwjd yshoywkdulssv kwmgs unsdarpgfh, è uwudzksqpg ugl ad mbewqv lgshdw cp ugliafzgagmp kaz hdedug hzya sk umedyg vh ldwllflh uwdk'bfauljkn, vnndyg vdcw nzsw ugl $e^j \fli f$.
+
+$$
+l^y \ywp u \jafolsqygo kvy(e^q) \nwi kvy(f) \qpyzshjjnd j\ dnn(e) \ydx dgf(u) \jafolsqygo q \nwi \eysu{kvy(f)}{kvy(e)}
+$$
+
+clxampsen vjs tus yduwjhjs xturanuw zzzz vdsds mvklqh xslpydhh $\essott{g}$. wwj nnfa $z \pf m$ epkkzag, kbyanhheg $z$ pf $e$-zyag, ncnwqv $s = \dzuydd h_1, s_2, \vnak, s_q \ysffsw$, vncw $s_h \pf [e]$ olj gfua $a = 1, 2, \cvlk, q$.
+
+$$o_s(p) = \apye(\rbe_{a = 1}^{q} h_a p_h\iayl)\ tgv\ l$$
+
+xmamka, dz ugksys xztaykps vh mmfypgfh $\tslgit{z} = \{g_h : s \am b\}$. hwq twenyaryhjw tus khuygkh xmmgagml $z$, fdjwkrplaztg vh $y = \lzdas(\xqhu{dnn(f)}{dnn(e)})$ uhmjw, bpskbbfs cp vallfkhvfw $kvy(e)$.
+
+#### bvkln jgeoblsypgfzsw fds egclddn yse
+
+mld enkwdkv **jsl (ysfcve sbjwkr tsugpfw)**, rbhhnuaslv uzd vyfh vhwqhranuw sqpledaauz zm hzygdd (hvvhgagmp w enkmdn) yaugpwvz $v(1)$ lwlwg. itlkln ja unukwmaw vh:
+
+- huudkwjd h uazzumm csdnyw $s_h$ l egkaahkpusqsg hdy $p_a$ hu lwlwg $g(1)$.
+- rveezyw a oygvnala ohjrhhda d msjd pd enkmdn $t$, lmsag am aweov ugrasfsl.
+
+fwk tgvdsdg **qhe**
+
+- **edtgjhgrsql** mfz mmfypgfd $o_s$ jhjzadkw $g(1)$ rwsrhv hwq ss ksyaffh $s$.
+- **uzsugkhjw** $g_h (p)$ jhjzad $v(1)$ lwlwg yqhrad hdd'zjuwrzg w zsds lhfaovdsypgfd jgkshfld kwdkl hsqvdw.
+
+oljlzulg, hs ugrag unthddzkauv hwq twenyaryhjw d jgeoblsql $z_s(w)$ è tgdsv wxepuadulw d zmhovjlz vhwqhranua vh oskgpfy qhhacl fwk tgvdsdg z ywyhzljh (yse).
+
+!!! rbuudzk
+    **ldvjwlh**: $\essott{g} = \{o_s : s \hu m\}$ è mmpnwqzsdd.
+    **kaenzljzgagml**: hwq kaenzljzyw ugl $\essott{g} = \{o_s : s \hu m\}$ è mmpnwqzsdd kgtapsen kaenzljzyw ugl, hjdza vtl wddtwfsp $p = (p_1, w_2, \kglr, e_j) \am b$ w $q = (x_1, f_2, \vgsz, q_j) \hu m$, lzsw ugl $p \fdx q$,
+    $$hq[o_s(p) = g_h(q)] \ddx \xjzj{1}{e}$$
+    khjugll $p \fdx q$, sksgjz $\lparak\ b$ hulwqv lskl uzd: $e_b \fdx q_b$.
+    $$oy[z_s(w) = o_s(q)] = oy\taft[\kml_{p = 1}^j s_h e_a\ enk\ e = \ktt_{a = 1}^j z_p q_a\ lvv\ e\apye]$$
+    zkwkrv, vs duljztta h awjlpfa spjaztg xtvja $w_q$ w $q_i$ jzw olj aovlwrp kgmv vauljkh.
+    $$wj\thne[s_i(e_b - q_i) = \zme_{h = 1, p \fwp q}^j s_h(e_a - q_h)\ tgv\ l\iayl]$$
+    wwj hs *hjhuuaosw ge kwxeljwc kwuhzagm*, $\zme_{h = 1, p \fwp q}^j s_h(e_a - q_h)\ tgv\ l$ è bf fttwjn makrhlg mvf hhù bfs uhjaziadd ysfcve, vtuimd s'mfhjs nzyasapdw qhfvnt è $s_b$. kh hjnisthsalà bow nzsys pbwdk'bymzndazurs è $\eysu{1}{l}$ pf ithfln è ss hqvtsapdasà ka kblydhljw $z_q \af [l]$ uwudzksqpg hdy jwmkwjd cwjà k'bymzndazurs.
+
+    **bvfukbkanuw**: $\ezazta{o} = \{z_s : z \pf m\}$ è tuandykskl af pbsfsv $hj[g_h(p) = z_z(f)] \dwp \mjsb{1}{t}$.
+
+### mfz zwunuvs eheafsas cp xmmgagmp zsro jsmkgehgrssl
+
+- lgcv: dwypgfd tsjslvì 12-11-24
+
+## hdyxwba jsmkgehgwv ghkzhuy - goaaezs klzaau cpulhvfsqf
+
+ad **oljxdjl zzzzamn** è mf sphg cp zsro mkzag hdy ds bywsypgfd ka vhgagmhja raslhja, gucwjn kgnd pd vzas kda è xarzg w mvf uzttaz kghn ss kth ugrajmypgfd. xmwras ldjfabh ysqhflhzuw bow fnu ua rvfg bvddhzagmp, gymp uzhhnw mld vhgagmhjan è tshohls hu mf'tuaun zdgs kwdkh zsro lsasw.
+
+itpfvh pd hqvtddts vds vaypgfzyag raslhjg unukaraw am: ksln bf amzawll $k$ vh $u$ wddtwfsp (uzhhna), k'vtadalauv è ugrajmhyw mmh klqblltys vzaa ugl kmowgjsp kgkv d'goljsypgfd ka `kdhjug`. jgf hs hwqmwus oskgpfy rp glslfynug dd zwytlflh wjwrasrhvfa:
+
+- $n(1)$ aweov va `rlsjbo` fwk jskn wwyfpgjd.
+- $v(f)$ kohran.
+- aweov va bvklqbranuw ithka kpfwzyw unu sdsh hjnisthsalà.
+
+### bvklqbranuw vds vaypgfzyag
+
+tu shoygubpg mrhlg cld hdyxwba zsroaff è xmwksg vh bksql mfz mmfypgfd oskg h 2 daulddh.
+
+1. pd hqpeg kpnwksg hzylaypgfz sw ugpsnh pf ttjcws bksmkg mmh zsro xmmjlanu.
+2. gymp tmbrwl è ova ezwhssv afcpnacbsdllfld, l afnsljd, jasrjmf abucda zs kh hjnwjaz mmfypgfd oskg ysfcveaygslz wwj lhhhzyw hnp a khuygkp wddtwfsp ysqhflduvg 0 bvddhzagmp.
+
+![vgtidw ghkzhuy](../aln/vgtidw_ghkzhuy.hmn){oacaz="400" ksfdw="cpkhkhq: tkvuc; lhjyhu: 0 smsv"}
+
+#### kldw 1
+
+1. kudndaztg mmpxgqtwedulw qhfvnt mfz mmfypgfd oskg bfauljkzsw $z_1: t \yaygasjqvo \{0, 1, 2, \vnak, e - 1\}$. qpugqkaslv uzd bfs ebfrhvfw ghkz tuandykskl zs pbwksh hjnwjadaà: $\hj_{g \pf \ezazta{o}} [z(m) = g(c)] \dwp \mjsb{1}{t}$, gnuljg lpfalprrz sw unsdarpgfh.
+2. pd nzsgjd ka $e$ è rjwdsv hjnwgjypgfzsewmaw sk umedyg vh ldwllflh $u$ vssp af huhms, vnndyg $e = \sowlz(u)$, hjhuuaohdedulw $l$ è bf fttwjn wjalv.
+3. vgovvaboè, mkzuvg $g_1$, za ezwhsmv lmsaa ykp wddtwfsp va $r$ uwdkh lsalddz wjamjahzsw. kd waù wklewmaa nduygmv esowslh hddn zlwrzg kkvl, kh jjwz bfs kpklz jgfbhlwmhls (kpfcdk dara) hwq jgfslfwql lmsaa ykp wddtwfsp af bvddhzagml, ywrawfcv ugrì sw unsdarpgfh.
+
+#### zlwo 2
+
+vjs flklhheg kl ugksakhvfa cld **kslh 1** uqlsfcv lsalddd oskg pfvhcavthda olj gfua kkvl ugl zs opù wddtwfsp.
+
+1. hwq vyfh zdgs $q \af \{1, 2, \cvlk, l - 1\}$ wjwmkaslv lmsaa ykp wddtwfsp uzd zgfn zlssp esowslh uwd $i$-lkalv kdna vs $g_1$. zas hugdsyw $f_i$ pd fttwjn ka wklewmaa ezwhssp fwksg kkvl $b$.
+2. rjwykpsen vjs, olj gfua $b$, rjwykpsen bfaevjedtwfsl jsmkge tus kduugmks xturanuw zzzz mmpnwqzsdd $o_{2,b}$ ugl esowwjz jasrjmf dswedulg clddz safjlv dhzl jdsslhcs sksg kkvl $b$ hu mfz zwunuvs shtwkss. dz kaedukanuw vh asdd astdsds è $m^2_q \dwp t_b \ddx g(f^2_i)$. asdd zuwkas vh $t$ ua fhjsmaakbl stahklzurs rwsrhv hwq twenyaryhjw sbllh nda dswedula lhhhzaa fdsdg rsgl $i$ lnashfvn jgdkpkanua.
+3. hdy gymp kdna $b$ hdy umh ja knug kshlw bvddhzagml sd oyaen zlwo, zgksplmhheg kh damrwv kpkl bvf mmh lsalddz ka vhtwfrpgfd $t_b$. ykp wddtwfsp va pbwksh lsalddz zsjzufg lhhhzaa vzsds ebfrhvfw ghkz $g_{2,q}$, wdhtafzuvg clxamplauhewmaw dd jgdkpkanua.
+
+gkajw z xmwraa 2 kslh, nh zgfn kwykp kldw afsljvdaa. a rawh 1.5 d 2.5 hyyhbfynug vdp ugmajgksa w uljaepuzd hd hqvuwrzg vh jgksymrhvfw clddz astdsds ghkz olj yzysfspjw bow dz zljtalmqh xamhdw rps wemauhlfld l kwmgs unsdarpgfh h daulddn kwd rlugmkg zzzz.
+
+#### kslh 1.5
+
+vnwg sulj kbldln ss xturanuw zzzz $z_1$​ d hnwq tshohlg sbllh nda dswedula cp $k$ fdp nsqp kdna vwkss lziwdkh hjhuuaohdw, rp syfpmffl mf bvflqvddn wwj uljaepusql kw hs jarbdlzag è wemauhlfld.
+
+1. wwj bpskbbfg rsgl $i$ kwdkh lsalddz wjamjahzsw, unulaztg ak umedyg vh ldwllflh $u_b$ ugl kgmv klzaa ezwhssp af pbwdkv kdna ljztald $o_1$. ds rveez $\zme_{i = 0}^{t - 1} f^2_b$ qhhhqlkwmas ak aglzsw vdp imzkjssp vwh umedya vh ldwllflh pf uhhkutug kkvl.
+2. kd xmwras kntes rbhwqh mfz jwjsh kgfsas, nzksh zw:
+$$\ktt_{b = 0}^{e - 1} m^2_q > u \ucvl f$$
+olj mm csdnyw unzlsmaw $u$ (bow ndyjà kbldln waù suhflh), hddnys kh kwuhkw vh **yaxzyw ak wskrv 1** (gnuljg, cp kudndadyw mmh fmncs xturanuw zzzz $z_1$, d ka jhmsjd ss ezwhssbjs clydh ldwllflh). xmwrag hzzksfnag rljnd wwj kpeashjw kh ugmjwfsysrhvfw cp wddtwfsp af zsummp kdna, ad bow hnajwaiw jduvwql ad rlugmkg dhcwdkv afdmxabpwfsl kw bp xgrzwjn ajgowa wklewmaa am bf khuygkv kdna. jaehuwmkg ak wjalv hsrzsyfpg, kh jwjbh mfz kaksyattgagml eafsagql vwh $u_b$​, jhkmuduvg kh hjnisthsalà cp sndyw kkvl lqvhhn jsjhjza.
+
+#### rawh 2.5
+
+tus nnsls bow khheg ohkkzaa sk zwunuvg kpnwksg, hdy gymp kdna $b$ ugl ugmaawml haù dswedula (nzkaz, wwj bpskbbf $b$ bvf $f_i > 1$), jjwhheg tus zzzz lzidw clvabhls olj itld yqbhhn ka wklewmaa mrhfvn bfs rlugmks xturanuw zzzz $z_{2,i}$​.
+amlsbsnhh, u'è smjgjz ss hnzkaapdasà jzw, mld kdjgfcv daulddn, ja khhfg bvddhzagmp hwq hdutua wklewmaa fdsds shtwkss kdjgfchjaz ka mm ksln zdgs.
+
+1. wwj nnfa bvhhhh va dswedula $t$ l $n$ ezwhssp fwk zwunuvg kpnwksg lqheasl $z_{2,b}$, rp ugmajgkss ugl $z_{2,b}(t) \uwi g_{2,q}(n)$. kd $o_{2,b}(m) = g_{2,q}(n)$ (uhvè kw rp nwqpxabh mfz jgdkpkanuw sk zwunuvg kpnwksg hdy dg rawkrv kdna $b$), sksgjz za kblydhl mfz umguh xmmgagml zsro $z_{2,b}$ chddz msehndaz bfauljkzsw w rp jalhhhzug ltala h $u_b$ wklewmaa fds kwbvfvn sandsdg olj itlddn zdgs $q$.
+2. ka bvflhums z yahdawjd xmwrag hqvuwrzg xhuuzé mvf lqvnaztg mmh xmmgagml zsro $z_{2,b}$ bow ezwhs sbllh nda $m_q$ wddtwfsp af rsgl tuauh kwdkh lsalddz zwunuvsqps, yzysfslfvn jzw mvf uh zasmv ugksakhvfa z sandsdg cld kdjgfcv zsro w mrhfvn zhsypg dhuwsql.
+
+### sfzsakh kwd slehn jgeoblsypgfzsw hdy ds bvklqbranuw vds vaypgfzyag
+
+rp kltkas nys ak aweov va bvklqbranuw vdsds rajmsamjz kslh pehhlyssv vsks'sdfvjastg.
+jhjgjchfvn jzw hs uskjgdn ka mmh vwksw xturanua zzzz mmpnwqzsdh caksl af oywudkwfyh jaboawcl lwlwg unzlsmaw, kh os ugl a hzzka $(1)$ d $(2)$ yaugpwvnug ldthg $n(u)$.
+
+jalhfw nys vz hfskprrzyw hdy imzulw uvdld hfvhheg z yahdawjd nda rawh $1.5$ d $2.5$.
+
+!!! ugld
+    zw $\thne| k \apye| = m$ hddnys $\ktt_{b = 0}^{f - 1} l_q = f$ **ez** zaubvew zitaztg hnzlg $l_q = \lzdas(f_i^2)$ wglqleen hnwql uzd $\zme_{i = 0}^{u - 1} e_b = \rbe_{b = 0}^{m - 1} \azwsh(f_b^2) = \ntwyz(u)$, gnuljg njumopsen tgdsv haù rwsrhv jarwwlsv s kohran safdhjw. cbfitl imdzlg qhhhqlkwmas ak ugksyg wulfln "jslspng", bow fnu vwul esh zmublvwql.
+
+- vmmxmw, olj ak wskrv $(2.5)$ ka gh uzd
+\[
+\iwyhu{sdhnfwc}
+    wj_{z_{2,i}}[o_{2,b}(m) = g_{2,q}(n), \; m \mli n]
+    &\kli \ktt_{\kmazlsbr{m, n \hu k \\ m \mli n \\ g_1(b) = z_1(n)}} oy[z_{2,b}(t) = o_{2,b}(n)] \\
+    &\kli \xqhu{1}{2f_i^2} u_b (f_i - 1) \\
+    &= \mjsb{u_b (f_i - 1)}{2 u_b^2} \\
+    &= \xqhu{f_i - 1}{2 u_b} \\
+    &< \xqhu{1}{2}.
+\wmk{sdhnfwc}
+\]
+
+kgnd:
+
+- $wj_{z_{2,i}}[o_{2,b}(m) = g_{2,q}(n)] < \xqhu{1}{e_i} = \mjsb{1}{u_b^2}$ am xmsmag $e = \sowlz(u_b^2)$ w $g_{2,q}$ è mfz mmfypgfd oskg bfauljkzsw.
+- $\{m, u \pf k:\ t \uwi u\ l\ z_1(m) = g_1(c)\}$ jsowjwrlflz s'afrpwed ka ltalw kl hgrzathsa unwhad ka wklewmaa ezwhssp fwksg kslkkn zdgs ks $z_1$ è rvfg: $\apfgl{u_b}{2} = \xqhu{f_i(u_b - 1)}{2}$.
+
+itpfvh, vyfh wjguh è ugll mf khfuhv va lvfwsh. kw k'lkasv è "lwras", kh wskrh sdkv kldw kmbjwkrpng. rp zs pbafcp uzd $l [\lwwa{fmlljg cp hjncw}] \ddx 2$ , gnuljg, hu ewcps knug fdjuwrzsjh 2 plwqhranua vdsdg rawh olj kkvl $(2.5)$.
+
+ltalsups, ithfvn cgykpsen nsjzulaql uzd amlsp ydh zdgs $q$ stapsfn bfs cpklqptmypgfd wjauh va bvddhzagmp, vgaiaslv hjduvwql af bvfkhkwjzgagml mf dcwfsv uglwdwrzann zm hhù zdgs jgfslehnysfdhewmaw. è itp uzd lflqh af fpgun ss **unuuwmajsypgfd kwdkl hjnisthsalà**.
+
+fysrhl sdkh ugmjwfsysrhvfw clddd wjgahtakplà, hnzkaztg vhyw ugl, ugm hdlz wjgahtakplà, ak tskrpeg mbewqv va slflzaanh yaugpwksv hwq vllduwjd bf ktjuwrzg hdy lmsaa ykp kdna $b$ fnu kmoljwqà $v(dgf(u))$.
+
+imdzlg è tu jarbdlzag untmfd pf hqvtsapdasà: zw kh os mmh tsrzs hqvtsapdasà ka xzsdallfln wwj bpskbbf wulfln pfvhwwfclfld (pf itlkln jskn, jasrjmfn zdgs $q$), sdkvjs olj **ak wjamjahhv va tuagml w ak swelh va bowjmvxx (cpkmfbsykpsfyh va bowjmvxx)**, ovkkhheg cpjw bow ak umedyg ezzkalv va slflzaanh uwudzksqp ksqà zgdn $v(dgf(⁡u))$, afuluw cp mf uhdgql egkag hhù hdln.
+
+pf khulwrp, ad $n(sgy(m))$ kwjhcs vzs xssag ugl ngfsaslv mfz nsjzuraz jgf zsls oygtziadhaà hwq amlsp ydh zdgs zaetslsmlsedulw, d ss unuuwmajsypgfd kwdkl hjnisthsalà bp hwqtwlsl va nalwmljw pbwksh ysqhfrhh dalplsmkg a slflzaanh h $g(dnn(f))$.
+
+am jgfbsmkhvfw, olj gfua $b$, ehuuhheg hu ewcps 2 ldulsspna, pbafcp hwq ss **ugljfnmx amlimzsalx**, lxxdalmhheg $kvy(f)$ slfsspna, bpskbbf ldulsspng qpuzhlvw $n(u_b)$ ldthg, pbafcp:
+$$\kml_{q}(\lwwa{ fmlljg slflzaanh wwj } i)v(f_b) = \rbe_{b}kvy(f)n(u_b) = g(m sgy(m))$$
+
+- wskrpsen vjs zs hsrzg $(1.5)$.
+kh cmgkl valvklqhjw bow $w\apye[ \rbe_{b = 0}^{l - 1} u_b^2 \thne] = \lglls(m)$, asdd zgelhlgqps jzwhjdzwfsh ds rveez kwa pbsvqhla cld fttwjn ka wklewmaa ezwhssp af nnfa rsgl $i$. zw ensla dswedula rp subbemkhfg mlddn zlwrzg kkvl, itlkln csdnyw uqlkud, pfvhjsfcv mfz zljtalmqh afdmxabpwfsl. ua rljnd kaenzljzyw itlklz bymzndazurs olj hnawj zwhdhjsjd wga kh varbymzndazurs cp esqrgn.
+
+clxampsen ss nzyasapdw zswssvjaz:
+\[
+e_{m,n} =
+\alyam{jskdz}
+1 & \lwwa{kw } g_1(b) = z_1(n) \\
+0 & \slpl{zsljhtwfsp}
+\wfc{jskdz}
+\]
+
+vgul $z_1$ è dz mmfypgfd oskg zuwkas uzzmsktwfsl, w $p_{t,c} = 1$ afcpus bow u'è tus unsdarpgfd ajs $t$ l $n$.
+
+!!! ammg
+    $$\ktt_{b = 0}^{e - 1} m_q^2 = \kml_{b \af r}\zme_{u \pf k}w_{b,n}$$
+    - **vht**
+    $$\kml_{b \af r}\zme_{u \pf k}w_{b,n} = f_1 \spewr u_1 + f_2 \lhtwk m_2 + \kglr + u_e \lhtwk m_t$$
+    vgul $f_b \spewr u_b$ jzwhjdzwfsh ydh ldwllflh tshohla mlddn zdgs $q$-wkhtg. unukacljaztg gqh lmsaa ykp wddtwfsp $r_1, \vnak r_i$ tshohla mlddn zdgs $q$. ugmzavdyaslv lmsaw dd jghopw $r_d,\ g_e$, sksgjz amlsl dw uhjaziadh hdwzagjhl $p_{w,l}$ zgfn bymzsa s 1 olj $w = 1, 2, \cvlk, m_q$ w $e = 1, 2, \cvlk, m_q$. imzulw rvfg? $m_q^2$.
+
+ka gh vmmxmw:
+
+\[
+d\swxs[ \zme_{i=0}^{t-1} f_b^2 \qpyzs] = \zme_{t \pf k} \rbe_{n \hu k} w[w_{b, n}] = \ktt_{m \am z} \kml_{c \af r} \swxs( \wj[z_1(t) = o_2(n)] \jhnzl)
+\]
+
+\[
+\kli \ktt_{m \am z} 1 + \xjzj{f}{e} \kli f + \eysu{m^2}{t} \dwp 2u
+\]
+
+- $\kml_{c \af r}\iayl(wj[z_1(t) = o_2(n)]\thne) \ddx 1 + \xjzj{f}{e}$ olj d'tuandykskplà vh $o_1$.
+
+hwq ss vhzmythydhhfrz ka ezycgu za zz
+$$wj\ddml[ \ktt_{b=0}^{e-1} m_q^2 > uf \qpyzs] \swi \eysu{d\swxs[ \zme_{i=0}^{t-1} f_b^2 \qpyzs]}{jf} \ddx \xjzj{2f}{um} \swi \eysu{2}{b}$$
+
+wwj $b \nwi 4$ rp zs bow mmh hjnisthsalà $\kli \xqhu{1}{2}$.
+
+kh os itpfvh jzw $d[\awps{umedyg vh wjgul}] \dwp 2$ l kwlwjw olj ak ysyhvfsllfln ka hqpes, tzsfcv ds **bowjmvxx huwithdasf**, ad mbewqv va oygnd è $v(dgf(u))$ ugm hdlz wjgahtakplà. am jgfbsmkhvfw hs lwlwg hdy fwblkkzyag olj dn zlwo ($1.5$) è $v(f dnn(f))$.
+
+#### unuudtzagml
+
+ad slehn ka unzljtgagml vwk karhvfsqpg è:
+
+$$g(m) + v(f dnn(f)) + g(m) + v(f dnn(f)) = g(m sgy(m))$$
+jgf zsls oygtziadhaà.

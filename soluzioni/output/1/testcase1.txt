@@ -1,0 +1,259 @@
+# hash table
+
+## problema del dizionario
+
+dato un universo $u$ di possibili elementi, dobbiamo mantenere un sott'insieme $s \subseteq u$ soggetto alle seguenti operazioni:
+
+- `make-dictionary()`: crea un dizionario vuoto
+- `insert(u)`: aggiungi l'elemento $u \in u$ a $s$
+- `delete(u)`: cancella $u$ da $s$ se $u \in s$
+- `look-up(u)`: determina se $u$ sta in $s$
+
+il problema che $u$ può avere una dimensione molto grande, e definire un array di tale dimensione non è efficiente.
+
+**soluzioni**:
+
+- *deterministica* - avl: $o(|s|)$ spazio e $o(log(|s|))$ costo per ogni operazione.
+- *randomizzata* - hash tables: $o(|s|)$ spazio e $o(1)$ costo per ogni operazione.
+
+![hash table](../img/hashtable.png){width="400" style="display: block; margin: 0 auto"}
+
+### idea
+
+l'idea è quella di tenere in memoria un tabella (array $h$) e ogni $h[i]$ è una linked list di elementi mappati dalla funzione di hash.
+
+una **collisione** avviene quando, dati due elementi $u \in u$ e $v \in v$ tali che $u \neq v$, e $h(u) = h(v)$.
+
+l'obiettivo è trovare una funzione hash $h$ tale che rispetti le seguenti caratteristiche:
+
+1. deterministica: la stessa chiave deve produrre lo stesso indice.
+2. uniforme: le chiavi devono essere distribuite uniformemente nell'array per minimizzare le collisioni.
+3. veloce da calcolare: dovrebbe essere computazionalemente efficiente per garantire l'accesso rapido.
+
+- **fatto i**: se $|u| > m^2$, per ogni funzione hash $h$ deterministica esiste un insieme $s$ di dimensione $n$ tale che tutti gli elementi di $s$ sono mappati nello stesso slot.
+- **dimostrazione**: fissato $h$ che dovrà mappare ciascun elemento di $u$ in $h$, e $s$ può essere scelto in modo opportuno dall'"avversario" rispetto ad $h$. dunque esiste almeno uno slot $i$ di $h$ la cui lista di trabocco ha dimensione $n$. dunque il costo per ogni operazione è $\theta(n)$
+
+### randomized hash functions
+
+in questo approccio iniziale, si tenta di mappare ogni elemento $u \in s$ a uno slot in $h$ in modo indipendente e uniforme. questo significa che, per ogni elemento $u$, scegliamo $h(u)$ (il valore hash di $u$) come un numero random tra gli slot disponibili di $h$.
+
+poiché ogni slot in $h$ ha uguale probabilità di essere scelto, la probabilità che un elemento $u$ venga mappato a uno specifico slot $i$ è data da:
+$$pr[h(u) = i] = \frac{1}{m}$$
+dove $m$ è il numero di slot di $h$.
+
+quando vogliamo fare un'operazione di `insert` o `lookup` per un elemento $u$, generiamo $h(u)$ come un valore random tra gli slot. tuttavia, dato che $h(u)$ è scelto casualmente ogni volta, non c'è alcuna garanzia che la stessa chiave $u$ venga mappata sempre allo stesso indice.
+di conseguenza, la stessa chiave $u$ potrebbe essere associata a indici diversi in momenti diversi, rendendo difficile trovare dove $u$ sia stato inserito in precedenza.
+
+per ovviare a questo problema, è necessario memorizzare esplicitamente ogni coppia $(u,\ h(u))$. così, ogni volta che vogliamo fare una ricerca (`lookup`), possiamo trovare la posizione esatta di $u$ senza dipendere dalla generazione casuale di $h(u)$.
+
+tuttavia, memorizzare tutte le coppie $(u,\ h(u))$ equivale essenzialmente a tenere traccia di ogni elemento con il proprio valore hash associato, trasformando questo sistema in un dizionario o una mappa in cui ogni chiave ha un valore associato (quindi stiamo cercando di risolvere il problema del dizionraio mediante un dizionario).
+
+!!! success
+    una famiglia $\mathbb{h}$ di funzioni hash si dice **universale** se per ogni $u,\ v \in u\ u \neq v$ la probabilità $\pr_{h \in \mathbb{h}} [h(u) = h(v)] \leq \frac{1}{m}$
+
+questo significa che una famiglia di funzioni hash è considerata universale se la probabilità che due elementi distinti $u$ e $v$ dell'universo $u$ vengano mappati allo stesso valore è al più $\frac{1}{m}$ dove $m$ è la dimensione dell'intervallo delle funzioni hash.
+
+!!! success
+    **teorema**: sia $\mathbb{h}$ una famiglia di funzioni hash universale. sia $s \subseteq u$ di $n$ elementi. sia $u \in s$. scegliamo uniformemente random una funzione $h$ all'interno di $\mathbb{h}$ e sia $x$ una variabile aleatoria che conta il numero di elementi di $s$ mappati nello slot $h(u)$. allora $$e[x] = 1 + \frac{n}{m}$$
+    **dimostrazione**: fissato $u$, per ogni $s \in s$,
+    $$
+    x_s = \begin{cases}
+    1 & \text{se } h(s) = h(u) \\
+    0 & \text{altrimenti}
+    \end{cases}
+    $$
+    e $x = \sum_{s \in s} x_s$.
+    \[
+    e[x] = e\left[\sum_{s \in s} x_s\right] = \sum_{s \in s} e[x_s] = \sum_{s \in s} \pr[h(s) = h(u)] 
+    \]
+
+    \[
+    = 1 + \sum_{s \in s \setminus \{u\}} \pr[h(s) = h(u)] \leq 1 + \frac{n}{m}
+    \]
+
+**osservazione**: il teorema ci dice che, fissato un elemento $u \in s$, il numero atteso di elementi in $s$ mappati nello stesso bucket di $h(u)$ è $e[x] = 1 + \frac{n}{m}$. questo significa che nel bucket associato a $h(u)$, oltre a $u$ stesso, ci aspettiamo in **media** $\frac{n}{m}$ altri elementi di $s$.
+conoscendo $n$, possiamo scegliere $m = o(n)$ in modo tale che la dimensione di ciascun bucket sia $\approx o(1)$. in altre parole, **se il numero di bucket è proporzionale al numero di elementi**, ci aspettiamo che ogni bucket contenga in media un numero costante di elementi.
+
+### una prima famiglia di funzioni hash randomizzate
+
+come progettisti della funzione hash, ci è dato sapere alcune informazioni: $|u| = n$, $|s| = n$. adesso con queste informazioni dobbiamo determinare la dimensione corretta della hash table. sia $m$ dunque la dimensione della hash table, un numero **primo** tale che $n \leq m \leq 2n$, e tale numero $m$ esiste sempre grazie ad un teorema dimostrato da *chebyshev*.
+
+il secondo step, è quello di codificare ciascun elemento $x \in u$ come un intero in base $m$, di $r$ cifre, $x = \langle x_1, x_2, \dots, x_r \rangle$. la quantità totale di combinazioni possibili con $r$ cifre è $m^r$. per garantire che ogni elemento dell'universo possa essere rappresentato senza collisioni, è necessario che il numero totale di combinazioni sia almeno pari al numero di elementi nell'universo, ovvero deve vale che $m^r \geq n$.
+
+$$
+m^r \geq n \rightarrow log(m^r) \geq log(n) \rightarrow r\ log(m) \geq log(n) \rightarrow r \geq \frac{log(n)}{log(m)}
+$$
+
+definiamo ora una generica funzione hash della nostra famiglia $\mathbb{h}$. per ogni $a \in u$ fissato, scriviamo $a$ in $m$-ario, ovvero $a = \langle a_1, a_2, \dots, a_r \rangle$, dove $a_i \in [m]$ per ogni $i = 1, 2, \dots, r$.
+
+$$h_a(x) = \bigm(\sum_{i = 1}^{r} a_i x_i\bigm)\ mod\ m$$
+
+quindi, la nostra famiglia di funzioni $\mathbb{h} = \{h_a : a \in u\}$. per memorizzare una singola funzione $h$, necessitiamo di $r = \theta(\frac{log(n)}{log(m)})$ cifre, ciascuna di dimensione $log(m)$.
+
+#### costo computazionale nel modello ram
+
+nel modello **ram (random access machine)**, supponiamo che ogni operazione aritmetica su parole (addizioni e modulo) richieda $o(1)$ tempo. questo ci consente di:
+
+- accedere a ciascun valore $a_i$ e moltiplicarlo per $x_i$ in tempo $o(1)$.
+- sommare i prodotti parziali e fare il modulo $m$, tutto in tempo costante.
+
+nel modello **ram**
+
+- **memorizzare** una funzione $h_a$ richiede $o(1)$ spazio per la stringa $a$.
+- **calcolare** $h_a (x)$ richie $o(1)$ tempo grazie all'accesso e alla manipolazione costante delle parole.
+
+pertanto, il costo complessivo per memorizzare e computare $h_a(x)$ è molto efficiente e supporta operazioni di hashing rapide nel modello a registri (ram).
+
+!!! success
+    **teorema**: $\mathbb{h} = \{h_a : a \in u\}$ è universale.
+    **dimostrazione**: per dimostrare che $\mathbb{h} = \{h_a : a \in u\}$ è universale dobbiamo dimostrare che, presi due elementi $x = (x_1, x_2, \dots, x_r) \in u$ e $y = (y_1, y_2, \dots, y_r) \in u$, tale che $x \neq y$,
+    $$pr[h_a(x) = h_a(y)] \leq \frac{1}{m}$$
+    siccome $x \neq y$, allora $\exists\ j$ intero tale che: $x_j \neq y_j$.
+    $$pr[h_a(x) = h_a(y)] = pr\bigm[\sum_{i = 1}^r a_i x_i\ mod\ m = \sum_{i = 1}^r a_i y_i\ mod\ m\bigm]$$
+    adesso, da entrambi i termini tiriamo fuori $x_j$ e $y_j$ che per ipotesi sono diversi.
+    $$pr\bigm[a_j(x_j - y_j) = \sum_{i = 1, i \neq j}^r a_i(x_i - y_i)\ mod\ m\bigm]$$
+    per il *principle of deffered decision*, $\sum_{i = 1, i \neq j}^r a_i(x_i - y_i)\ mod\ m$ è un numero fissato non più una variabile random, dunque l'unica variabile random è $a_j$. la probabilità che valga quell'uguaglianza è $\frac{1}{m}$ in quanto è la probabilità di scegliere $a_j \in [m]$ necessario per rendere verà l'uguaglianza.
+
+    **conclusione**: $\mathbb{h} = \{h_a : a \in u\}$ è universale in quanto $pr[h_a(x) = h_a(y)] \leq \frac{1}{m}$.
+
+### una seconda famiglia di funzioni hash randomizzate
+
+- todo: lezione martedì 12-11-24
+
+## perfect randomized hashing - optimal static dictionary
+
+il **perfect hashing** è un tipo di hash usato per la creazione di dizionari statici, ovvero dove il data set è fisso e non cambia dopo la sua costruzione. questa tecnica garantisce che non ci sono collisioni, ogni chiave nel dizionario è mappata in un'unico slot della hash table.
+
+quindi il problema del dizionario statico consiste in: dato un insieme $s$ di $n$ elementi (chiavi), l'obiettivo è costruire una struttura dati che supporti solo l'operazione di `search`. con il perfect hashing si ottengono le seguenti prestazioni:
+
+- $o(1)$ tempo di `search` nel caso peggiore.
+- $o(n)$ spazio.
+- tempo di costruzione quasi lineare con alta probabilità.
+
+### costruzione del dizionario
+
+un approccio usato del perfect hashing è quello di usare una funzione hash a 2 livelli.
+
+1. il primo livello partiziona le chiavi in bucket usando una hash function.
+2. ogni bucket è poi mappato individualmente, e inoltre, ciascun bucket ha la propria funzione hash randomizzata per mappare poi i singoli elementi garantendo 0 collisioni.
+
+![double hashing](../img/double_hashing.png){width="400" style="display: block; margin: 0 auto"}
+
+#### step 1
+
+1. scegliamo uniformemente random una funzione hash universale $h_1: u \rightarrow \{0, 1, 2, \dots, m - 1\}$. ricordiamo che una funzione hash universale ha questa proprietà: $\pr_{h \in \mathbb{h}} [h(u) = h(v)] \leq \frac{1}{m}$, ovvero minimizza le collisioni.
+2. il valore di $m$ è scelto proporzionalmente al numero di elementi $n$ dati in input, ovvero $m = \theta(n)$, principalmente $m$ è un numero primo.
+3. dopodichè, usando $h_1$, si mappano tutti gli elementi di $s$ nella tabella principale. se più elementi vengono mappati allo stesso slot, si crea una lista concatenata (linked list) per contenere tutti gli elementi in collisione, gestendo così le collisioni.
+
+#### step 2
+
+ora gestiamo le collisioni del **step 1** creando tabelle hash individuali per ogni slot che ha più elementi.
+
+1. per ogni slot $j \in \{1, 2, \dots, m - 1\}$ prendiamo tutti gli elementi che sono stati mappati nel $j$-esimo slot da $h_1$. sia inoltre $n_j$ il numero di elementi mappati nello slot $j$.
+2. scegliamo ora, per ogni $j$, scegliamo uniformemente random una senconda funzione hash universale $h_{2,j}$ che mappera ciascun elemento della linked list relativa allo slot $j$ in una seconda tabella. la dimensione di tale tabella è $n^2_j \leq m_j \leq o(n^2_j)$. tale scelta di $m$ ci garantisce abbastanza spazio per memorizzare tutti gli elementi mappati nello slot $j$ evitando collisioni.
+3. per ogni slot $j$ per cui ci sono state collisione al primo step, sostituiamo la linked list con una tabella di dimensione $m_j$. gli elementi di questa tabella saranno mappati dalla funzione hash $h_{2,j}$, eliminando definitivamente le collisioni.
+
+oltre a questi 2 step, vi sono degli step interdeti. i step 1.5 e 2.5 aggiungono dei controlli e verifiche al processo di costruzione della tabella hash per garantire che la struttura finale sia efficiente e senza collisioni a livello del secondo hash.
+
+#### step 1.5
+
+dopo aver scelto la funzione hash $h_1$​ e aver mappato tutti gli elementi di $s$ nei vari slot della tabella principale, si aggiunge un controllo per verificare se il risultato è efficiente.
+
+1. per ciascuno slot $j$ della tabella principale, contiamo il numero di elementi $n_j$ che sono stati mappati in quello slot tramite $h_1$. la somma $\sum_{j = 0}^{m - 1} n^2_j$ rappresenta il totale dei quadrati dei numeri di elementi in ciascuno slot.
+2. se questa somma supera una certa soglia, ossai se:
+$$\sum_{j = 0}^{m - 1} n^2_j > c \cdot n$$
+per un valore costante $c$ (che verrà scelto più avanti), allora si decide di **rifare il passo 1** (ovvero, di scegliere una nuova funzione hash $h_1$, e di rifare la mappatura degli elementi). questo passaggio serve per limitare la concentrazione di elementi in alcuni slot, il che potrebbe rendere il secondo livello inefficiente se ci fossero troppi elementi in un singolo slot. rifacendo il primo passaggio, si cerca una distribuzione migliore dei $n_j$​, riducendo la probabilità di avere slot troppo carichi.
+
+#### step 2.5
+
+una volta che siamo passati al secondo livello, per ogni slot $j$ che contiene più elementi (ossia, per ciascun $j$ con $n_j > 1$), creiamo una hash table dedicata per quel gruppo di elementi usando una seconda funzione hash $h_{2,j}$​.
+tuttuavia, c'è ancora la possibilità che, nel secondo livello, ci siano collisioni per alcuni elementi nella tabella secondaria di un dato slot.
+
+1. per ogni coppia di elementi $u$ e $v$ mappati nel secondo livello tramite $h_{2,j}$, si controlla che $h_{2,j}(u) \neq h_{2,j}(v)$. se $h_{2,j}(u) = h_{2,j}(v)$ (cioè se si verifica una collisione al secondo livello per lo stesso slot $j$), allora si sceglie una nuova funzione hash $h_{2,j}$ dalla famiglia universale e si rimappano tutti i $n_j$ elementi nel secondo livello per quello slot $j$.
+2. si continua a ripetere questo processo finché non troviamo una funzione hash $h_{2,j}$ che mappa tutti gli $n_j$ elementi in slot unici della tabella secondaria, garantendo che non ci siano collisioni a livello del secondo hash e usando spazio lineare.
+
+### analisi del tempo computazionale per la costruzione del dizionario
+
+si studia ora il tempo di costruzione della struttura dati impiegato dall'algoritmo.
+ricordando che il calcolo di una delle funzioni hash universali viste in precedenza richiede tempo costante, si ha che i passi $(1)$ e $(2)$ richiedono tempo $o(n)$.
+
+rimane ora da analizzare per quante volte andiamo a ripetere gli step $1.5$ e $2.5$.
+
+!!! note
+    se $\bigm| s \bigm| = n$ allora $\sum_{j = 0}^{n - 1} m_j = n$ **ma** siccome abbiamo posto $m_j = \theta(n_j^2)$ potremmo avere che $\sum_{j = 0}^{n - 1} m_j = \sum_{j = 0}^{n - 1} \theta(n_j^2) = \omega(n)$, ovvero occupiamo molto più spazio rispetto a spazio lineare. dunque questo rappresenta il nostro evento "cattivo", che non deve mai succedere.
+
+- dunque, per il passo $(2.5)$ si ha che
+\[
+\begin{aligned}
+    pr_{h_{2,j}}[h_{2,j}(u) = h_{2,j}(v), \; u \neq v]
+    &\leq \sum_{\substack{u, v \in s \\ u \neq v \\ h_1(u) = h_1(v)}} pr[h_{2,j}(u) = h_{2,j}(v)] \\
+    &\leq \frac{1}{2n_j^2} n_j (n_j - 1) \\
+    &= \frac{n_j (n_j - 1)}{2 n_j^2} \\
+    &= \frac{n_j - 1}{2 n_j} \\
+    &< \frac{1}{2}.
+\end{aligned}
+\]
+
+dove:
+
+- $pr_{h_{2,j}}[h_{2,j}(u) = h_{2,j}(v)] < \frac{1}{m_j} = \frac{1}{n_j^2}$ in quanto $m = \theta(n_j^2)$ e $h_{2,j}$ è una funzione hash universale.
+- $\{u, v \in s:\ u \neq v\ e\ h_1(u) = h_1(v)\}$ rappresenta l'insieme di tutte le possibili coppie di elementi mappati nello stesso slot da $h_1$ è sono: $\binom{n_j}{2} = \frac{n_j(n_j - 1)}{2}$.
+
+quindi, ogni prova è come un lancio di moneta. se l'esito è "testa", si passa allo step successivo. si ha quindi che $e [\text{numero di prove}] \leq 2$ , ovvero, in media sono neccessari 2 iterazioni dello step per slot $(2.5)$.
+
+tuttavia, quando vogliamo garantire che tutti gli slot $j$ abbiano una distribuzione priva di collisioni, dobbiamo prendere in considerazione un evento complessivo su più slot contemporaneamente. è qui che entra in gioco la **concentrazione delle probabilità**.
+
+grazie alla concentrazione delle probabilità, possiamo dire che, con alta probabilità, il massimo numero di tentativi richiesto per ottenere un successo per tutti gli slot $j$ non supererà $o(log(n))$.
+
+questo è un risultato comune in probabilità: se si ha una bassa probabilità di fallimento per ciascun evento indipendente (in questo caso, ciascuno slot $j$), allora per **il principio di unione e il lemma di chernoff (disuguaglianza di chernoff)**, possiamo dire che il numero massimo di tentativi necessari sarà solo $o(log(⁡n))$, invece di un valore molto più alto.
+
+in sintesi, il $o(log(n))$ deriva dal fatto che vogliamo una garanzia con alta probabilità per tutti gli slot simultaneamente, e la concentrazione delle probabilità ci permette di ottenere questa garanzia limitando i tentativi a $o(log(n))$.
+
+in conclusione, per ogni $j$, facciamo in media 2 tentativi, quindi per la **chernoff inequality**, effettuiamo $log(n)$ tenativi, ciascun tentativo richiede $o(n_j)$ tempo, quindi:
+$$\sum_{j}(\text{ numero tentativi per } j)o(n_j) = \sum_{j}log(n)o(n_j) = o(n log(n))$$
+
+- passiamo ora al passo $(1.5)$.
+si vuole dimostrare che $e\bigm[ \sum_{j = 0}^{m - 1} n_j^2 \bigm] = \theta(n)$, tale sommatoria rappresenta la somma dei quadrati del numero di elementi mappati in ogni slot $j$. se molti elementi si accumulano nello stesso slot, questo valore cresce, indicando una struttura inefficiente. ci serve dimostrare questa uguaglianza per poter applicare poi la disuguaglianza di markov.
+
+definiamo la variabile aleatoria:
+\[
+x_{u,v} =
+\begin{cases}
+1 & \text{se } h_1(u) = h_1(v) \\
+0 & \text{altrimenti}
+\end{cases}
+\]
+
+dove $h_1$ è la funzione hash scelta casualmente, e $x_{u,v} = 1$ indica che c'è una collisione tra $u$ e $v$.
+
+!!! info
+    $$\sum_{j = 0}^{m - 1} n_j^2 = \sum_{u \in s}\sum_{v \in s}x_{u,v}$$
+    - **dim**
+    $$\sum_{u \in s}\sum_{v \in s}x_{u,v} = n_1 \times n_1 + n_2 \times n_2 + \dots + n_m \times n_m$$
+    dove $n_j \times n_j$ rappresenta gli elementi mappati nello slot $j$-esimo. consideriamo ora tutti gli elementi $z_1, \dots z_j$ mappati nello slot $j$. consideriamo tutte le coppie $z_e,\ z_m$, allora tutte le variabili aleatorie $x_{e,m}$ sono uguali a 1 per $e = 1, 2, \dots, n_j$ e $m = 1, 2, \dots, n_j$. quante sono? $n_j^2$.
+
+si ha dunque:
+
+\[
+e\left[ \sum_{j=0}^{m-1} n_j^2 \right] = \sum_{u \in s} \sum_{v \in s} e[x_{u, v}] = \sum_{u \in s} \sum_{v \in s} \left( \pr[h_1(u) = h_2(v)] \right)
+\]
+
+\[
+\leq \sum_{u \in s} 1 + \frac{n}{m} \leq n + \frac{n^2}{m} \leq 2n
+\]
+
+- $\sum_{v \in s}\bigm(pr[h_1(u) = h_2(v)]\bigm) \leq 1 + \frac{n}{m}$ per l'universalità di $h_1$.
+
+per la disuguaglianza di markov si ha
+$$pr\left[ \sum_{j=0}^{m-1} n_j^2 > cn \right] \leq \frac{e\left[ \sum_{j=0}^{m-1} n_j^2 \right]}{cn} \leq \frac{2n}{cn} \leq \frac{2}{c}$$
+
+per $c \geq 4$ si ha che una probabilità $\leq \frac{1}{2}$.
+
+si ha quindi che $e[\text{numero di prove}] \leq 2$ e sempre per il ragionamento di prima, usando la **chernoff inequality**, il numero di prove è $o(log(n))$ con alta probabilità. in conclusione il tempo per necessario per lo step ($1.5$) è $o(n log(n))$.
+
+#### conclusione
+
+il tempo di costruzione del dizionario è:
+
+$$o(n) + o(n log(n)) + o(n) + o(n log(n)) = o(n log(n))$$
+con alta probabilità.

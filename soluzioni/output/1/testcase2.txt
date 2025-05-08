@@ -1,0 +1,557 @@
+# livello di trasporto
+
+## introduzione
+
+un protocollo a livello di trasporto mette a disposizione una **comunicazione logica** tra processi applicativi di host diversi.
+per comunicazione logica si intente, dal punto di vista dell'applicazione, che tutto proceda come se gli host che eseguono i processi fossero direttamente connessi, anche se geograficamente si trovano in posti totalmente diversi.
+
+come i protocolli a livello di applicazione, anche i protocolli a livello di trasporto sono implementanti nei sistemi periferici.
+- lato mittente: il livello di trasporto converte i messaggi che riceve dal livello applicazione in pacchetti a livello di trasporto, noti come **segmenti**. questo avviene spezzando (se necessario) i messaggi in parti più piccole aggiungendo a ciascuna un intestazione di trasporto per creare il segmento. il livello di trasporto passa poi il segmento al livello di rete, dove viene incapsulato in un datagramma e inviato al destinatario. 
+- lato ricevente: elabora i segmenti ricevuti dal livello di rete, crea il messaggio assemblando i segmenti e li passa al livello applicazione.
+
+internet possiede due protocolli di trasporto:
+- udp (user datagram protocol), inaffidabile.
+- tcp (transmission control protocol), comunicazione tra processi affidabile, con vari controlli.
+
+quindi:
+- livello di trasporto: comunicazione logica tra **processi**
+- livello di rete: comunicazione logica tra **host**
+
+## multiplexing e demultiplexing
+
+un processo, gestisce più di una **socket**, attraverso i quali i dati fluiscono dalla rete al processo e viceversa. di conseguenza, il livello di trasporto non trasferisce i dati direttamente al processo, bensì ad un socket che fa da intermediario. inoltre, ogni socket avrà un identificatore univoco il cui formato dipende dal fatto che si tratti di socket udp o tcp.
+
+- lato ricevente, il livello di trasporto esamina i campi del segmento per identificare la socket di ricezione e quindi vi dirige il segmento. il compito di trasportare i dati dei segmenti a livello di trasporto verso la socket giusta viene detto **demultiplexing**.
+- lato mittente, il livello di trasporto raduna i frammenti di dati da diverse socket sull'host di origine e incapsulare ognuno con intestazione a livello di trasporto per creare dei segmenti e passarli al livello di rete. quest'operazione viene detta **multiplexing**.
+
+il multiplexing a livello di trasporto richiede:
+1. le socket abbiano identificatori unici
+2. ciascun segmento presenti campi che indichino la socket cui va consegnato il segmento.
+
+questi sono il **campo del numero di porta di origine** e il **campo del numero di porta di destinazione**. i numeri di porta sono di 16 bit e vanno da 0 a 65535, quelli che vanno da 0 a 1023 sono chiamati **numeri di porta noti** e sono riservati per essere usati da protocolli applicativi noti come http, ftp, dns etc... .quindi ogni socket nell'host deve avere un numero di porta e, quando un segmento arriva all'host, il livello di trasporto esamina il numero della porta di destinazione e dirige il segmento verso la socket corrispondente. i dati del segmento passano quindi dalla socket al processo assegnato.
+
+**multiplexing e demultiplexing non orientati alla connessione**
+
+in python, `client_socket = socket(af_inet, sock_dgram)` permette di creare una socket udp. quando una socket viene creata in questo modo, il sistema operativo assegna in modo automatico un numero di porta compreso tra 1024 e 65535 che non sia ancora utilizzato. in alternativa, `client_socket.bind(('', 19157))` crea una socket associata ad una particolare porta.
+
+una volta create le socket, quando si deve creare il datagramma si deve specificare l'indirizzo ip di destinazione e il numero di porta di destinazione, il segmento viene poi passato al livello di rete che effettua un tentativo best-effort di consegna del segmento all'host di destinazione. se il segmento arriva all'host di destinazione, il suo livello di trasporto esamina il numero di porta di destinazione nel segmento, e invia il segmento udp alla socket con quel numero di porta.
+
+e' importante notare che una socket udp viene identificata completamente da una coppia che consiste di un indirizzo ip e di un numero di porta di destinazione. due segmenti udp con lo stesso indirizzo ip e numero di porta di destinazione saranno indirizzati allo stesso processo sul computer di destinazione, anche se gli indirizzi ip e i numeri di porta di origine sono diversi. 
+esempio:
+- il computer a invia un segmento udp al computer c con l'indirizzo ip 192.168.1.100 e la porta 5000.
+- il computer b invia un segmento udp al computer c con l'indirizzo ip 192.168.1.100 e la porta 5000.
+entrambi i segmenti udp saranno indirizzati allo stesso processo sul computer c, perché hanno lo stesso indirizzo ip e numero di porta di destinazione 192.168.1.100:5000.
+
+**multiplexing e demultiplexing orientati alla connessione**
+
+la differenza tra una socket tcp e una socket udp è che una socket tcp è identificata da 4 parametri: **indirizzo ip di origine**, **numero di porta di origine**, **indirizzo ip di destinazione**, **numero di porta di destinazione**.
+
+- l'applicazione server tcp presenta una "socket di benvenuto" che si pone in attesa di richieste di connessione da parte dei client tcp sula porta 12000.
+- il client tcp crea una socket e genera un segmento per stabilire la connessione tramite le seguenti linee di codice: 
+```python
+client_socket = socket(af_inet, sock_stream)
+client_socket.connect(server_name, 12000)
+```
+- una richiesta di connessione non è nient'altro che un segmento tcp con un numero di porta di destinazione 12000 e uno speciale bit di richiesta di connessione post a 1 nell'intestazione. il segmento include anche un numero di porta di origine, scelto dal client.
+- il sistema operativo dell'host che esegue il processo server, quando riceve il segmento con la richiesta di connessione con porta di destinazione 12000, localizza il processo server in attesa di accettare connessioni sulla porta 12000. il processo server crea quindi una nuova connessione `connection_socket, addr = server_socket.accept()` 
+- inoltre il livello di trasporto sul server prende nota dei seguenti valori nel segmento con la richiesta di connessione:
+    1.  numero di porta di origine nel segmento
+    2.  indirizzo ip dell'host di origine
+    3.  numero di porta di destinazione nel segmento
+    4.  il proprio indirizzo ip 
+
+tutti i segmenti successivi la cui porta di origine, indirizzo ip di origine, porta di destinazione e indirizzo ip di destinazione coincidono con tali valori verranno diretti verso questa socket.
+
+## trasporto non orientato alla connessione: udp
+
+upd fa il minimo che un protocollo di trasporto debba fare. a parte la funzione di multiplexing/demultiplexing e una forma di controllo semplice, non aggiunge nulla a ip. udp prende i messaggi dal processo applicativo, aggiunge il numero di porta di origine e di destinazione per il multiplexing/demultiplexing, aggiunge altri due piccoli campi e passa il segmento al livello di rete.
+in udp non esiste handshaking tra le entità di invio e di ricezione a livello di trasporto. per questo motivo, si dice che udp è **non orientato alla connessione**.
+
+**perche esiste udp?**
+
+- controllo più preciso a livello di applicazione su quali dato sono inviati e quando, dimunendo il ritardo di trasmissione, dato che non deve effettuare controlli.
+- nessuna connessione stabilita, che potrebbe aggiungere ritardo.
+- nessun stato di connessione.
+- minor spazio usato per l'intestazione del pacchetto, udp aggiunge 8 byte mentre tcp ne aggiunge 20.
+
+<img src="img/usiudp.png" width="500" />
+
+- lato mittente: gli viene passato un messaggio applicativo, determina i valori dei campi di intestazione del segmento udp, poi crea il segmento e lo invia al livello di rete.
+- lato ricevente: riceve il segmento dal livello di rete, controlla il valore del campo di intestazione udp checksum, estrare il messaggio applicativo e lo consegna alla socket appropriata.
+
+<img src="img/udp.png" width="300" />
+
+**checksum udp**
+
+il checksum udp server per il rilevamento degli errori. in altre parole, viene utilizzato per determinare se i bit del segmento udp sono stati alterati durante il loro trasferimento da sorgente a destinazione. il mittente udp effettua il complemento a 1 della somma di tutte le parole da 16 bit nel segmento, e l'eventuale riporto viene sommato al primo bit. tale risulato viene posto nel campo *checksum* del segmento udp.
+ipotizziamo di avere 3 parole a 16 bit:
+- questa è la somma delle prime 2
+$$0110 0110 0110 0000 + 
+  0101 0101 0101 0101 =
+  1011 1011 1011 0101$$
+- adesso sommiamo il risulato della somma, con la terza parola
+$$1011 1011 1011 0101 +
+  1000 1111 0000 1100 =
+  0100 1010 1100 0010$$
+- effettuando il complemento a 1, che consiste in invertire i bit, otteniamo: $1011 0101 0011 1101$. in ricezione si sommano le tre parole inziali e il checksum. se non ci sono errori nel pacchetto, l'adizione farà $1111 1111 1111 1111$, altrimenti se un bit vale 0 sappiamo che è stato introdotto almeno un errore nel pacchetto.
+
+## principi del trasferimento dati affidabile
+
+l'astrazione del servizio offerta alle entità dei livelli superiori è quella di un canale affidabile tramite il quale si possono trasferire dati. con un canale affidabile a disposizione nessun bit dei dati trasferiti è corrotto o va perduto e tutti i bit sono consegnati nell'ordine di invio.
+il compito di un **protocollo di trasferimento affidabile** è l'implementazione di questa astrazione di servizio.
+
+per esempio tcp è un protocollo di trasferimento dati affidabile implementato appogiandosi a un livello di rete (ip) che non è affidabile end-to-end.
+
+<img src="img/astrazione-implementazione.png" width="300" />
+
+assumiamo che i pacchetti vengano consegnati nell'ordine con cui sono stati inviati, ma che alcuni possono andare persi. l'interfacce che useremo per descrivere il protocollo affidabile sono:
+- `rdt_send()`: trasferirà i dati da consegnare al livello superiore sul lato ricevente. `rdt` sta per *reliable data transfer*.
+- `rdt_rcv()`: chiatama usata per ricevere i dati dal lato del ricevente.
+- `rdt_deliver()`: invia i dati al livello superiore.
+- `udt_send()`: invio di pacchetti di controllo. `udt` sta per *unreliable data transfer*.
+
+inoltre, consideriamo solo il caso di **trasferimento dati unidirezionale**. quindi passiamo adesso a definire man mano il nostro protocollo `rdt`, mediante una macchina a stati finiti. lo stato successivo è determinato unicamente dall'evento successivo.
+
+### rdt 1.0, canale affidabile
+
+consideriamo il caso più semplice, in cui il canale sottostante è completamente affidabile.
+
+<img src="img/rdt1_0.png" width="300" />
+
+- mittente: accetta i dati dal livello superiore `rdt_send(data)`, crea il pacchetto `make_pkt(data)` e lo invia sul canale `udt_send(data)`.
+- ricevente: riceve i dati dal canale sottostante `rdt_rcv(packet)`, rimuove i dati dal pacchetto `extract(packet, data)` e li passa al livello superiore `deliver_data(data)`.
+
+### rdt 2.0, canale con errori su bit
+
+un modello più realistico del canale sottostante è quello in cui i bit in un pacchetto possono essere corrotti.
+dopo ogni invio di un pacchetto, il mittente si mette in attesa di un feedback da parte del ricevente, che può essere:
+- **positiva, acknowledgements (acks)**: il ricevente comunica espressamente al mittente che il pacchetto ricevuto è corretto.
+- **negativa, negative acknowledgements (naks)**: il ricevente comunica espressamente al mittente che il pacchetto contiene errori. in questo caso il mittente *ritrasmette* il pacchetto.
+
+<img src="img/rdt2_0.png" width="300" />
+
+- mittente: nello stato di sinistra, attende e raccoglie i dati dal livello superiore `rdt_send(data)`, crea il pachetto contenente i dati da inviare e il checksum e infine spedisce il pacchetto `rdt_send(sndpkt)`. nello stato di destra, è in attesa di un pacchetto ack o nak dal destinatario. se riceve un  ack `rdt_rcv(rcvpkt) && isack(rcvpkt)`, il mittente sa che il pacchetto trasmesso più di recente è stato ricevuto correttamente e torna nello stato di attesa dei dati proveniente dal livello superiore. se riceve un nak, il protocollo ritrasmette l'ultimo pacchetto e attende una risposta alla ritrasmissione.
+da notare che quando è in attesa di ack o nak, non può riceve altri dati dal livello superiore, perciò non puo inviare nuovi dati finchè non è certo che il destinatario abbia ricevuto correttamente il pacchetto corrente. questo tipo di protocolli sono noti come **protocolli stop-and-wait**.  
+- ricevente: all'arrivo del pacchetto, il destinatario risponde o con un ack `rdt(rcvpkt) && notcorrupt(rcvpkt)` o con nak `rdt(rcvpkt) && corrpt(rcvpkt)`, a seconda che il pacchetto sia corrotto o meno. 
+
+anche se sembra funzionare questo protocollo, nella realtà presenta un grave difetto; infatti non abbiamo tenuto conto della possibilità che i pacchetti ack e nak possano a loro volta essere dannegiati. infatti se un ack o un nak è corrotto, il mittente non ha modo di sapere se il destinatario abbia ricevuto correttamente l'ultimo blocco di dati trasmesso.
+
+### rdt 2.1, gestione di ack o nak alterati
+
+un approccio a questo problema prevede semplicemente che il mittente rinvii il pacchetto di dati corrente a seguito della ricezione di un pacchetto ack o nak alterato. questo approccio introduce **pacchetti duplicati** nel canale. la fondamentale difficoltà insita nella duplicazione di pacchetti che il destinatario non sa se l'ultimo ack o nak inviato sia stato ricevuto correttamente dal mittente. una soluzione a questo nuovo problema consiste nell'aggiungere un campo al pacchetto dati, obbligando il mittente a numerare i propri pacchetti dati con un **numero di sequenza**. al destinatario sarà sufficiente controllare questo numero per sapere se il pacchetto ricevuto rappresenti un ritrasmissione o meno. 
+per questo semplice protocollo, un numero di sequenza da 1 bit sarà sufficiente, dato che consentirà al destinatario di sapere se il mittente stia ritrasmettendo un pacchetto o inviandone un già trasmesso. nel primo caso il numero di sequenza del pacchetto ha lo stesso numero di sequenza del pacchetto appena ricevuto, nel secondo caso il numero di sequenza sarà diverso. dato che stiamo ipotizzando che il canale non perda pacchetti, i pacchetti ack e nak non devono indicare il numero di sequenza del pacchetto di cui rappresentano la notifica. il mittente sa che un pacchetto ricevuto di tipo ack o nak (alterato o meno) è stato generato come risposta al pacchetto dati trasmesso più di recente.
+
+<img src="img/rdt2_1.png" width="400" />
+
+adesso, gli automi del mittente e del destinatario hanno il doppo degli stati, questo perche il protocollo deve riflettere il fatto che il pacchetto attualmente in invio o in ricezione abbia numero di sequenza 0 o 1.
+
+### rdt2.2, un protocollo senza nak
+
+- ha la stessa funzionalità di rdt2.1, utilizzando soltanto gli ack. al posto di nak, il destinatario invia un ack per l'ultimo pacchetto ricevuto correttamente. il destinatario deve includere esplicitamente il numero di sequenza del pacchetto con l'ack.
+- un ack duplicato presso il mittente determina la stessa azione del nak, ovvero sa che il destinatario non ha ricevuto correttamente il pacchetto, e dovrà ritrasmettere il pacchetto corrente.
+
+### rdt3.0, canali con errori e perdite
+
+supponiamo ora che il canale di trasmissione, oltre a dannegiare i bit, possa anche *smarrire* i pacchetti, un evento non raro sulle odierne reti di calcolatori. supponiamo che il mittente spedisca una pacchetto dati e che questo o l'ack corrispondente del ricevente venga smarrito. in entrambi i casi, il mittente non otterrà alcuna risposta dal destinatario. se il mittente è disposto ad attendere un tempo per essere certo dello smarrimento del pacchetto, può semplicemente ritrasmettere il pacchetto.
+
+adesso si pone il problema di scegliere adeguatamente il tempo di attesa, quindi l'approccio adottato nella pratica è scegliere in modo assennato un valore di tempo tale per cui la perdita di pacchetti risulti probabile, anche se non garantita. se non riceve un ack in questo lasso di tempo, il pacchetto viene ritrasmesso.
+ci può essere il caso in cui un pacchetto sperimenta um ritardo particolarmente lungo, anche se nè il pacchetto dati nè il pacchetto ack sono smarriti, in questo caso c'è la possibilità di **pacchetti di dati duplicati**, ma questo problema è già stato risolto in rdt2.0.
+
+il mittente non sa se un pacchetto dati sia andato perduto, se sia stato smarrito un ack o se il pacchetto o l’ack abbiano semplicemente subìto un notevole ritardo.
+in tutti questi casi, l’azione intrapresa è la stessa: ritrasmettere. implementare un meccanismo di ritrasmissione basato sul tempo richiede un contatore 
+(count-down timer) in grado di segnalare al mittente l’avvenuta scadenza di un dato lasso di tempo.
+
+<img src="img/rdt3_0.png" width="300" />
+
+dato che i numeri di sequenza dei pacchetti si alternano tra 0 e 1, il protocollo rdt3.0 viene talvolta detto **protocollo ad alternanza di bit**.
+
+### protocolli per il trasferimento dati affidabile con pipeline
+
+il protocollo rdt3.0 è corretto dal punto di vista funzionale, ma è molto lento rispetto alle reti odierne. il problema delle prestazioni risiede nel fatto che si tratta di un protocollo stop-and-wait.
+
+**funzionamento rdt3.0 con protocollo stop-and-wait**
+
+per analizzare la velocita di trasferimento di un protocollo stop-and-wait consideriamo questo caso: due host, ciascuno su una costa degli stati uniti. il ritardo di propagazione (rtt) alla velocità della luce è approssimativamente 30 ms. supponiamo un collegamento a 1 gbps con pacchetti di dimensione $l$ di 100 byte.
+
+$$
+d_{t} = \frac{l}{r} = \frac{8000}{10^9} \frac{bit}{bit / s} = 8\mu s
+$$
+
+se definiamo l'**utilizzo** del mittente come la frazione di tempo in cui il mittente è stato effettivamente occupato nell'invio di bit sul canale, il protocollo stop-and-wait presenta un triste utilizzo del mittente $u_{mittente}$ pari a:
+
+$$
+u_{mittente} = \frac{l / r}{rtt + l / r} = \frac{0.008}{30.008} = 0.0027
+$$
+
+<img src="img/saw.png" width="300" />
+
+di conseguenza, il throughput è al massimo 267 kbps!
+
+**funzionamento rdt3.0 con pipeline**
+
+la soluzione a questo problema è semplice. anziché operare in modalità stop-and-wait, si consente al mittente di inviare più pacchetti senza attendere gli acknowledgement. questa tecnica è nota come **pipelining**. di conseguenza il protocollo di trasferimento affidabile cambia un po:
+- l'intervallo di numeri di sequenza disponibili deve essere incrementato dato che ogni pacchetto in transito deve presentare un numero di sequenza univoco e che ci potrebbero essere più pacchetti in transito ancora in attesa di acknowledgment.
+- ci dovrà essere un buffer sia nel mittente che nel destinatario. il mittente dovrà memorizzare i pacchetti trasmessi, ma il cui acknowledgment non è ancora ricevuto.
+- due soluzioni ai errori con pipeline: **go-back-n** e **ripetizione selettiva**.
+
+<img src="img/pipe.png" width="300" />
+
+### go-back-n (gbn)
+
+in un protocollo **go-back-n** il mittente può trasmettere più pacchetti senza dover attendere alcun acknowledgment, ma non può avere più di un dato numero massimo consentito n di pacchetti in attesa di acknowledgment nella pipeline. 
+
+<img src="img/gbn.png" width="400" />
+
+- l'intervallo `[0, base - 1]` corrisponde ai pacchetti già trasmessi e che hanno ricevuto acknowledgment.
+- l'intervollo `[base, nextseqnum - 1]` corrisponde ai pacchetti inviati, ma che non hanno ancora ricevuto alcun acknowledgment.
+- l'intervallo `[nextseqnum, base + n - 1]` può essere utilizzato per i pacchetti da inviare immediatamente, nel caso arrivassero dati dal livello superiore.
+- infine, i numeri di sequenza maggiore o uguali a $base + n$ non posson essere utilizzati finché il mittente non riceva un acknowledgment relativo a un pacchetto che si trova nella pipeline ed è ancora privo di acknowledgement.
+
+l'intervallo di numeri di sequenza ammisibili per i pacchetti trasmessi, ma che non hanno ancora ricevuto alcun acknowledgment, può essere visto come una finestra di dimensione $n$ sull'intervallo di numeri di sequenza. quando il protocollo è in funzione, questa finestra trasla lungo lo spazio dei numeri di sequenza. per questo motivo, $n$ viene spesso chiamato **ampiezza della finestra** e il protocollo gbn viene detto **protocollo a finestra scorrevole**.
+
+**il mittente gbn deve rispondere a tre tipi di evento.**
+
+<img src="img/gbn_fsm_mittente.png" width="300" />
+
+1. *invocazione dall'alto*. quando viene chaiamata `rdt_send()`, come prima cosa il mittente controlla se la finestra sia piena, ossia se vi siano $n$ pacchetti in sospeso senza acknowledgment. se la finistra non è piena, crea e invia un pacchetto e le variabili vengono aggiornate di conseguenza. se la finistra è piena, il mittente restituisce i dati al livello. a livello implementativo, i dati vengono memoriazzati in un buffer oppure viene utilizzato un meccanismo di sincronizzazione che consenta al livello superiore di invocare `rdt_send()` solo quando la finestra non è piena.
+2. *ricezione di un ack*. nel protocollo gbn, l'acknowledgment del pacchetto con il numero di sequenza $n$ verrà considerato un **acknowledgment cumulativo**, che indica che tutti i pacchetti con un numero di sequenza $\leq n$ sono stati correttamente ricevuti.
+3. *evento di timeout*. come nei protocolli stop-and-wait, si usa ancora un contatore per risolvere il problema di pacchetti dati o acknowledgment persi. quando si verifica un timeout, il mittente invia nuovamente **tutti** i pacchetti spediti che ancora non hanno ricevuto un acknowledgment.  
+
+**anche le azioni del destinatario gbn sono semplici**
+
+<img src="img/gbn_fsm_ricevente.png" width="300" />
+
+se un pacchetto con numero di sequenza $n$ viene ricevuto correttamente ed è in ordine (ossia, gli ultimi dati consegnati al livello superiore provengono da un pacchetto con numero di sequenza $n - 1$), il destinatario manda un ack per quel pacchetto e consegna i suoi dati al livello superiore. in tutti gli altri casi, il destinatario scarta i pacchetti e rimanda un ack per il pacchetto in ordine ricevuto più di recente.
+
+### ripetizione selettiva
+
+i **protocolli a ripetizione selettiva** evitano le ritrasmissioni non necessarie facendo ritrasmettere al mittente solo quei pacchetti sui cui esistono sospetti di errore (ossia, smarrimento o alterazione). 
+
+<img src="img/rpt_sel.png" width="300" />
+
+**mittente**
+
+1. *dati ricevuti dall'alto*. quando si ricevono dati dall'alto, il mittente sr controlla il successivo numero di sequenza disponibile per il pacchetto. se è all'interno della finestra del mittente, i dati vengono impacchettati e inviati. altrimenti sono salvati nei buffer o restituiti al livello superiore per una successiva ritrasmissione, come in gbn.
+2. *timeout*. vengono usati ancora i contatori per cautelarsi contro la perdita di pacchetti. ora però ogni pacchetto deve avere un proprio timer logico, dato che al timeout sarà ritrasmesso un solo pacchetto.
+3. *ack ricevuto*. se riceve un ack, il ricevente etichetta tale pacchetto come ricevuto, ammesso che sia nella finestra. se $n$ è il numero di sequenza di più piccolo, la base della finestra avanza al successivo numero di sequenza del pacchetto non riscontrato.
+
+**ricevente**
+
+1. *il pacchetto con numero di sequenza nell'intervallo `[rcv_base, rcv_base + n + 1]` viene ricevuto correttamente*. il pacchetto ricevuto ricade all'interno della finestra del ricevente e al mittente viene restituito un pacchetto ack. se il pacchetto non era già stato ricevuto viene inserito nel buffer. se presenta un numero di sequenza uguale alla base della finestra di ricezione, allora questo pacchetto e tutti i pacchetti nel buffer aventi numeri consevutivi vengono consegnati al livello superiore.
+2. *viene ricevuto il pacchetto con numero di sequenza nell' intervallo `[rcv_base - n, rcv_base - 1]`*. in questo caso si deve generare un ack, anche se si tratta di un pacchetto che il ricevente ha già riscontrato.
+3. *altrimenti*, si ignora il pacchetto.   
+
+## trasporto orientato alla connessione: tcp
+
+### connessione tcp
+
+> [!important]
+>
+> **tcp** viene detto **orientato alla connessione** in quanto, prima di effettuare lo scambio dei dati, i processi devono effettuare l'handshake, ossia devono inviarsi reciprocamente alcuni segmenti preliminari per stabilire i parametri del successivo trasferimento dati. come parte dell'instaurazione della connessione tcp, entrambe le parti inizializzano molte variabili di stato associate alla connessione.
+
+una connessione tcp offre un **servizio full-duplex**, ovvero data una connessione tra due applicazioni, a e b su due host differenti,  i dati a livello di applicazione possono fluire dal processo a al processo b e in contemporanea dal processo b al processo a. (a <-> b).
+
+una connessione tcp è anche **punto a punto**, ossia ha luogo tra un singolo mittente e un singolo destinatario.
+una volta instaurata una connessione tcp, i due processi applicativi si possono scambiare dati. consideriamo l'invio di dati dal processo client al processo server. il primo manda un flusso di dati attraverso la socket. questi quando hanno attraversato il punto di uscita, sono nelle mani di tcp in esecuzione sul client. tcp dirige i dati al **buffer di invio** della connessione, uno dei buffer riservato durante l'handshake a tre vie, da cui, di tanto in tanto, preleverà blocchi di dati e li passerà al livello di rete.
+
+<img src="img/tcp.png" width="300" />
+
+la massima quantità di dati prelevabili e posizionabili in un segmento viene limitata dalla **dimensione massima del segmento (mss)**. questo valore viene generalmente impostato determinando prima la lunghezza del frame più grande che può essere inviato a livello di collegamento dall'host mittente locale, la cosidetta **unità trasmissiva massima (mtu)** e poi scegliendo un mss tale che il segmentto tcp stia all'interno di un singolo frame a livello di collegamento, considerando anche la lunghezza dell'intestazione tcp/ip normalmente di 40 byte. i protocolli ethernet e ppp hanno un mtu di 1500 byte, quindi un valore tipico di mss è di 1460 byte.
+
+### segmenti tcp
+
+tcp accoppia ogni blocco di dati del client a una intestazione tcp, andando a formare **segmenti tcp**. questi vengono passati al sottostanze livello di rete, dove sono incapsulati separatamente in datagrammi ip che vengono poi immessi in rete. dall'altro capo tcp riceve un segmento, i dati del segmento vengono memorizzati nel buffer di ricezione della connessione tcp. l'applicazione legge il flusso di dati da questo buffer, che è proprio per ogni lato della connessione.
+
+<img src="img/tcp_seg.png" width="300" />
+
+come in udp, l'intestazione include **numeri di porta di origine e di destinazione**, utilizzati per il multiplexing e il demultiplexing dei dati da e verso le applicazioni del livello superiore, e un campo **checksum**. inoltre tcp comprende anche i seguenti campi d'intestazione:
+
+- **numero di sequenza** e **numero di acknowledgment**, entrambi di 32 bit, vengono utilizzati dal mittente e dal destinatario tcp per implementare il trasferimento dati affidabile.
+- **finestra di ricezione**, di 16 bit, viene utilizzato per il controllo di flusso.
+- **lunghezza dell'intestazione**, di 4 bit, specifica la lunghezza dell'intestazione tcp in multipli di 32 bit. l'intestazione tcp ha lunghezza dell'intestazione tcp in multipli di 32 bit.l'intestazione tcp ha lunghezza variabile a causa del campo delle opzioni tcp. generalmente, il campo delle opzioni è vuoto e, pertanto la lunghezza consueta è di 20 byte.
+- **opzioni**, facoltativo e di lunghezza variabile, viene utilizzato quando mittente e destinatario negoziano la dimensione massima del segmento (mss) o come fattore di scala per la finestra nelle reti ad alta velocità.
+- **flag**, campo di 6 bit. il bit **ack** viene usato per indicare che il valore trasportato nel campo di acknowledgment è valido. i bit **rst**, **syn**, **fyn** vengono utilizzati per impostare e chiudere la connessione. i bit **cwr** ed **ece** sono usati nel controllo di congestione. se il bit **psh** ha valore 1 il destinatario dovrebbe inviare immediatamente i dati al livello superiore. il bit **urg** per indicare nel segmento la presenza di dati che l'entità mittente a livello superiore ha marcato come "urgenti".
+
+**numeri di sequenza e numeri di acknowledgment**
+
+tcp vede i dati come un flusso di byte non strutturati, ma ordinati. dato che i numeri di sequenza si applicano al flusso di byte trasmessi e non alla serie di segmenti trasmessi, pertanto, il **numero di sequenza del segmento** è il numero nel flusso di byte del primo byte del segmento.
+
+siano due host, a e b in comuncazione su un canale tcp.
+il **numero di acknowledgment** che l'host a scrive nei propri segmenti e il numero di sequenza del byte successivo che l'host a attende dall'host b.
+
+supponiamo che l’host a abbia ricevuto un segmento dall’host b contenente i byte da 0 a 535 e un altro segmento contenente i byte da 900 a 1000. per qualche motivo l’host a non ha ancora ricevuto i byte da 536 a 899. in questo esempio, l’host a sta ancora attendendo il byte 536 (e i successivi) per ricreare il flusso di dati di b. perciò il prossimo segmento di a destinato a b conterrà 536 nel campo del numero di acknowledgment. dato che tcp effettua l’acknowledgment solo dei byte fino al primo byte mancante nel flusso, si dice che tale protocollo offre **acknowledgment cumulativi (cumulative acknowledgment)**.
+
+### timeout e stima del tempo di andata e ritorno (rtt)
+
+tcp, utilizza un meccanismo di timeout e ritrasmissione per recupere i segmenti persi. il timeout deve essere più grande del tempo di andata e ritorno sulla connessione (**rtt, round-trip time**), ossia del tempo trascorso da quando si invia un segmento a quando se ne riceve l'acknowledgment, altrimenti ci sarebbero delle ritrasmissioni inutili.
+
+**stima rtt**
+
+- `samplertt`: rtt misurato di un segmento, è la quantità di tempo che intercorre tra l'istante di invio del segmento (quando viene passato a ip) e quello di ricezione dell'acknowledgment del segmento.
+
+i campioni variano da segmento a segmento in base alla congestione nei router e al diverso carico sui sistemi periferici. a causa di tale fluttuazione, ogni valore di `samplertt` può essere atipico. per effettuare una stima più natuale, tcp effettua una media di `samplertt` chiamata `estimatedrtt`, calcolato secondo questa formula:
+
+$$estimatedrtt = (1 - \alpha)\cdot estimatedrtt + \alpha\cdot samplertt$$
+
+si noti che `estimatedrtt` è una media ponderata dei valori `samplertt`. tale media attribuisce maggiore importanza ai campioni recenti rispetto a quelli vecchi. in statistica una media costruita in questo modo è detta **media mobile esponenziale ponderata (ewma)**.
+
+$$estimatedrtt_{n} = (1 - \alpha)^{n}\cdot estimatedrtt_{n - 1} + \alpha\cdot samplertt_{n}$$
+
+oltre ad avere una stima di rtt è anche importante possedere la misura della sua variabilità. `devrtt` è una stima di quanto `samplertt` generalmente si discosta da `estimatedrtt`.
+
+$$devrtt = (1 - \beta)\cdot devrtt + \beta\ \cdot \mid samplertt - estimatedrtt \mid$$
+
+tipicamente il valore di $\beta$ è 0.25.
+
+dati i valori di `estimatedrtt` e `devrtt`, dobbiamo trovare il valore del timeout. l'intervallo non può essere minore di `estimatedrtt` ma neanche troppo maggiore, altrimenti tcp non ritrasmetterebbe rapidamente il segmento perduto, il che comporterebbe gravi ritardi sul trasferimento dei dati. è pertanto necessario impostare il timeout a `estimatedrtt` più un certo margine che dovrebbe essere grande quando c'è molta fluttuazione nei valori di `samplertt` e piccolo in caso contrario.
+$$timeoutinterval = estimatedrtt + 4\cdot\ devrtt$$
+
+### trasferimento dati affidabile
+
+tcp crea un **servizo di trasporto dati affidabile** al di sopra del servizio inaffidabile e best-effort ip, assicurando che il flusso di byte che i processi leggono dal buffer di ricezione tcp non sia alterato, non abbia buchi, non presenti duplicazioni e rispetti la sequenza originaria, in altre parole il flusso di dati in arrivo è esattamente quello spedito.
+
+**mittente tcp**
+
+osserviamo ora come le azioni del mittente dipendano dal tipo di evento che avviene.
+
+- **evento** - *dati ricevuti dall'applicazione*. viene creato il segmento tcp con numero di sequenza `nextseqnum` che inizialemente è il numero del primo byte del segmento nel flusso di byte. successivamente avvia il timer se non già in funzione e passa il segmento a ip e aggiorna `nextseqnum = nextseqnum + len(dati)`.
+- **evento** - *timeout*. ritrasmette il segmento che ha causato il timeout, ovvero il segmento che non ha ricevuto ack con il più piccolo numero di sequenza e riavvia il timer.
+- **evento** - *ack rivevuto*. sia $y$ il ack ricevuto. se $y\ > sendbase$ aggiorna $y = sendbase$ e inoltre, se esistono segmenti senza ack avvia il timer.
+
+**ricevente tcp**
+
+osserviamo ora come le azioni del ricevente dipendano dal tipo di evento che avviene.
+
+- **evento** - arrivo ordinato di segmento con numero di sequenza atteso. tutti i dati fino al numero di sequnza atteso sono già stati riscontrati
+    - **azione** - ack ritardato. attende fino a 500 ms per l'arrivo ordinato di un altro segmento. se in questo intervallo non arriva il successivo, invia un ack.
+- **evento** - arrivo ordinato di segmento con numero di sequenza atteso. un altro segmento ordinato è in attesa di trasmissione dell'ack.
+    - **azione** - invia immediatamente un singolo ack cumulativo, riscontrando entrambi i segmenti ordinati.
+- **evento** - arrivo non ordinato di segmento con numero di sequenza superiore a quello atteso. viene rilevato un buco.
+    - **azione** - invia immediatamente un *ack duplicato*, indicando il numero di sequenza del prossimo byte attso (che è l'estremità inferiore del buco).
+- **evento** - arrivo di un segmento che colma parzialmente o completamente il buco nei dati ricevuti.
+    - **azione** - invia immediatamente un ack, ammesso che il segmento cominci dall'estremità inferiore del buco.
+
+**ritrasmissione rapida**
+
+uno dei problemi legati alle ritrasmissioni è che il periodo di timeout puù rivelarsi relativamente lungo. quando si smarrisce un segmento, il lungo periodo di timeout impone al mittente di ritardare il nuovo invio del pacchetto in perso, incrementando di conseguenza il ritardo end-to-end. fortunatamente, il mittente può in molti casi rilevare la perdita dei pacchetti ben prima che si verifichi l'evento di timeout grazie agli **ack duplicati** relativi a un segmento il cui ack è già stato ricevuto dal mittente.
+
+dato che in molti casi il mittente invia un gran numero di segmenti, se uno di questi viene smarrito ci saranno probabilmente molti ack duplicati. se il mittente tcp riceve **3 ack** duplicati con lo stesso data, considera questo evento come indice che il successivo segmento sia andato perduto. nel caso in cui siano stati ricevuti 3 ack duplicati, il mittente tcp effettua una **ritrasmissione rapida** rispedendo il segmento mancante prima che scada il timer.
+
+### controllo di flusso
+
+gli host riservano dei buffer di ricezione per la connessione tcp. quando la connessione tcp riceve dei byte corretti e in sequenza, li posiziona nel buffer di ricezione. il processo applicativo associato legge i dati da questo buffer, anche in un secondo istante, non necessariamente nell'istante in cui arrivano. se l'applicazione è relativamente lenta nella lettura dei dati può accadere che il mittente mandi in overflow il buffer di ricezione inviando molti dati troppo rapidamente.
+
+tcp offre un **servzio di controllo di flusso** alle proprie applicazioni per evitare che il mittente saturi il buffer ricevente. il controllo di flusso è pertanto un servizio di confronto sulla velocità, dato che paragona la frequenza di invio del mittente con quella di lettura dell'applicazione ricevente.
+
+inoltre i mittenti tcp possono essere ralentati anche dalla congestione della rete ip, che prende il nome di **controllo di congestione**.
+
+tcp offre il controllo di flusso facendo mantenere al mittente una variabile chiamata **finestra di ricezione** che, in sostanza, fornisce al mittente un'indicazione dello spazio libero disponibile nel buffer del destinatario.
+
+<img src="img/tcp_buffer_flusso.png" width="300" />
+
+supponiamo che un host a stia inviando un file di grandi dimensioni ad un host b su una connessione tcp. questo'ultimo alloca un buffer di ricezione per la connessione, la cui dimensione è denotata come `rcvbuffer`. definiamo le seguenti variabile:
+
+- `lastbyteread`: numero dell'ultimo byte nel flusso di dati che il processo applicativo in b ha letto dal buffer.
+- `lastbytercvd`: numero dell'ultimo byte, nel flusso di dati, che proviene dalla rete e che è stato nell buffer di ricezione di b.
+
+dato che tcp non può mandare in overflow il buffer allocato, dovremo avere per forza:
+$$lastbytercvd - lastbyteread \leq rvcbuffer$$
+
+la finestra di ricezione, indicata con `rwnd`, viene impostata alla quantità di spazio disponibile nel buffer.
+$$rwnd = rcvbuffer - [lastbytercvd - lastbyteread]$$
+
+dato che lo spazio disponibile varia con il tempo, `rwnd` è dinamica.
+
+l'host b comunica all'host a quanto spazio disponibile sia presente nel buffer della connessione, scrivendo il valore corrente di `rwnd` nel campo apposito dei segmenti che manda ad a. l'host b inizializza `rwnd` con il valore di `rcvbuffer`.
+
+a sua volta, l'host a tiene traccia di:
+
+- `lastbytesent`: ultimo byte mandato.
+- `lastbyteacked`: ultimo byte per cui si è ricevuto un acknowledgment
+
+la differenza di queste due variabili esprime la quantità di dati spediti da a per cui non si è ancora ricevuto un acknowledgment. mantenendo questa quantità sotto il valore di `rwnd`, si garantisce che l'host a non mandi in overflow il buffer di b.
+$$lastbytesent - lastbyteacked \leq rwnd$$
+
+### gestione della connessione tcp
+
+supponiamo che un processo client debba stabilire una connessione tcp con un processo server. la connessione avviene nel seguente modo:
+
+1. il client invia uno speciale pacchetto tcp al server. questo pacchetto contiene il bit di intestazione **syn** posto a 1. inoltre il client sceglie a caso un numero di sequenza (`client_isn`) iniziale e lo pone nel campo numero di sequenza del segmento syn iniziale. questo segmento viene poi inviato al livello ip che lo spedisce.
+2. quando il datagramma ip contenente il segmento syn arriva al server, ammesso che arrivi, il server alloca i buffer e le variabili tcp alla connessione e invia un segmento di connessione approvata al client. questo segmento contiene tre informazioni importanti.
+    - il bit **syn** posto a 1.
+    - il campo **ack** assume il valore `client_isn + 1`.
+    - genera il proprio numero di sequenza `server_isn` e lo pone nel campo numero di sequenza.
+
+    il segmento di connessione approvato viene detto **segmento synack**. 
+3. alla ricezione del segmento synack anche il client alloca il buffer e le variabili alla connessione. l'host client invia poi al server un altro segmento in risposta al segmento di connessione approvata. il client pone i valore `server_isn + 1` nel campo ack dell'intestazione tcp e il bit syn posto a 0 dato che la connessione è stabilita. 
+
+notiamo per i due host si scambiano 3 pacchetti per stabilire la connessione, infatti questo procedimento prende il nome di **handshake a 3 vie**.
+
+per chiudere la connessione tcp client e server chiudono ciascuno il proprio lato della connessione, inviando il segmento tcp con i bit **fin** posto a 1. 
+
+## controllo della congestione tcp
+
+**congestione**: tentativo da parte di troppe sorgenti di inviare dati a ritmi troppo elevati. la ritrassmissione dei pacchetti e lunghi ritardi sono sintomi della congestione della rete.
+
+### cause e costi della congestione
+
+per cominciare a studiare le cause e i costidella congestione andiamo a considerare 3 scenari:
+
+1. due mittenti e un router con buffer illimitati.
+    consideriamo 2 host a e b, con una connessione e un unico router tra di loro. supponiamo che l'applicazione sull'host a stia inviando dati sulla connessione ad un frequenza $\lambda_{in}\ byte/s$. tali dati sono originali, ovvero è la prima volta che sono stati inviati. supponiamo inoltre che il protocollo di trasporto sia semplici, senza controllo degli errori, flusso e congestione.
+
+    l'host b opera in modo simile, e assumeremo per semplicità che anch'esso stia trasmettendo a $\lambda_{in}\ byte/s$. i pacchetti passanno attraverso un router e un collegamento condiviso di capacità $r$. il router possiede buffer illimitati e consentono di memorizzare i pacchetti entranti quando il tasso di arrivo è superiore al tasso di uscita.
+
+
+    - nel grafico a sinistra osserviamo il **throughput per connessione** in funzione del tasso di invio. finché non supera il valore di $\frac{r}{2}$, il throughput del ricevente equivale al tasso di invio del mittente, in pratica tutto quello che viene trasmesso dal mittente viene ricevuto dal destinatario con un ritardo finito. ma se il tasso di invio supera $\frac{r}{2}$ il throughput rimane $\frac{r}{2}$.
+    - si potrebbe pensare che ottenere un throughput pari a $\frac{r}{2}$ sia ottimo, dato che il collegamento viene completamente utilizzato, ma il grafico a destra ci mostra che se il tasso di invio si avvicina a $\frac{r}{2}$, il ritardo medio cresce sempre di più, e quando supera $\frac{r}{2}$, il numero di pacchetti in coda al router cresce senza limite, e il ritardo medio tra mittente e destinatario tende a infinito.
+
+<img src="img/scenario1.png" width="400" />
+
+2. due mittenti e un router con buffer limitati.
+    assumiamo ora che il router abbia buffer limitato e che le connessioni sono affidabili. dato che il buffer è limitato, i pacchetti in più verranno scartati, quindi di conseguenza dovrà essere prima o poi ritrasmesso. denotiamo il tasso di trasmissione con $\lambda_{in}\ byte/s$ e indichiamo con $\lambda_{in}^{'}\ byte/s$ il tasso al quale il livello di trasporto invia segmenti contente dati originali e ritrasmessi, detta anche **carico offerto** alla rete.
+    $$\lambda_{in}^{'}\ \geq \lambda_{in}$$
+
+
+    - supponiamo che il mittente sia a conoscenza dello spazio libero all'interno del buffer del destinatario. in questo caso, il mittente trasmette un pacchetto solo quando il buffer è libero e di conseguenza non si verificherebbe alcun smarrimento, e avremmo $\lambda_{in}^{'}\ = \lambda_{in}$ e il throughput della connessione sarebbe $\lambda_{in} (caso a)$.
+    - consideriamo ora il caso, un pò più realistico, in cui il mittente ritrasmette solo quando è certo che un pacchetto sia andato perduto. in questo caso le prestazioni potrebbero avere l'aspetto del grafico (b). supponiamo che il carico offerto $\lambda_{in}^{'} = \frac{r}{2}$. secondo (b), il tasso con cui i dati vengono consegnati all'applicazione destinataria è $\frac{r}{3}$. quindi su $0.5\ r$ unità di dati trasmessi, $0.333\ r\ byte/s$ sono quelli originli e $0.166\ r\ byte/s$ sono ritrasmessi.
+    - consideriamo l'ultimo caso in cui il mittente possa andare in timeout prematuramente e ritrasmettere un pacchetto che abbia subìto ritardi in coda, ma non sia stato perduto, in questo caso il mittente invia due copie, che vengono entrambe consegnate, costituendo un ulteriore costo legato alla congestione di rete.
+<img src="img/scenario2.png" width="400" />
+  
+3. quattro mittenti, router con buffer finiti e percorsi composti da più collegamenti.
+    in questo caso supponiamo che i pacchetti siano trasmessi da quattro host, ciascuno su percorsi composti da due collegamenti sovrapposti tra loro. ciascun host, inoltre, utilizza un meccanismo di timeout e ritrassmissione per implementare un servizio affidabile e tutti e quattro hanno lo stesso valore $\lambda_{in}$. la capacità dei collegamenti dei router è $r\ byte/s$.
+    quando $\lambda_{in}^{'}$ e $\lambda_{in}$ aumentano, dato che sul router r2 il traffico da a a c e quello da b a d sono in competizione per il limitato spazio nei buffer, la quantità di traffico a - c che passa con successo attraverso r2 diventa sempre più piccola al crescere del traffico trasportato da b - d. al limite, quando questo tende a infinito, un buffer vuoto presso r2 viene immediatamente colmato da un pacchetto b - d e il throughput della connessione a - c presso r2 tende a 0. ne segue il throughput end-to-end di a - c si annulla in caso di traffico pesante.
+    
+<img src="img/scenario3.png" width="200">
+
+### approcci al controllo della congestione
+
+- *controllo di congestione end-to-end*. il livello di rete non fornisce supporto esplicito al livello di trasporto per il controllo di congestione la cui presenza deve essere dedotta dai sistemi periferici sulla base dell'osservazione delle loro perdite e ritardi. tcp utilizza questo metodo dato che ip non fornisce alcuna informazione relativa alla congestione della rete.
+- *controllo di congestione assistito dalla rete*. i router forniscono un feedback **diretto** all'host mittente tramite un *chokepacket* che lo avvisa dello stato di congestione. oppure si può usare una forma di **controllo di congestione atm abr (available bit rate)**, che consente a un router di informare il mittente in modo esplicito sulla frequenza trasmissiva che il router puù supportare su un collegamento uscente.
+
+### controllo di congestione tcp classico
+
+tcp implementa il controllo di congestione end-to-end, che consiste nel imporre a ciascun mittene un  limite al tasso di invio sulla propria connessione in funzione della congestione di rete percepita.
+
+il meccanismo di controllo di congestione tcp fa tener traccia agli estremi della connessione di una variabile aggiuntiva: la **finestra di congestione**, indicata con $cwnd$ che impone un vincolo alla velocità di immissione dei dati sulla rete.
+$$lastbytesent - lastbyteacked\ \leq \min\{cwnd, rwnd\}$$
+assumeremo che il buffer di ricezione sia sufficiente grande, possiamo trascurare il vincolo della finestra di ricezione (che assumiamo sempre maggiore della finestra di congestione)
+
+tasso di invio: $\approx\ \frac{cwnd}{rtt}\ byte/s$.
+
+#### slow start
+
+quando si stabilisce una connessione tcp, il valore di $cwnd$ viene in genere inizializzato a $1\ mss$. quindi durante la fase inziale detta **slow start**, il valore di $cwnd$ parte da $1\ mss$ e incrementa di $1\ mss$ ogni volta che un segmento trasmesso riceve un acknowledgment, inoltre invia due segmenti di dimensione massina. quidi, la velocità di trasmissione parte lentamente, me cresce in modo esponenziale fino a quando non si verifica un evento di perdita.
+
+**quando dovrebbe terminare questa crescita esponenziale?**
+
+1. se c'è un evento di perdita indicato da un evento di timeout, il mittente tcp pone $cwnd = 1$ e inzia di nuovo il processo di slow start. inoltre imposta una variabile $ssthresh = \frac{cwnd}{2}$.
+2. poiché $ssthresh$ è impostato a metà del valore di $cwnd$ all'ultimo rilievo dela congestione, potrebbe essere un pò temerario continuare a raddoppiare il valore di $cwnd$ quando raggiunge o sorpassa il valore $ssthresh$. quindi, quando il valore di $cwnd$ è pari a $ssthresh$ la fase di slow start termina e tcp entra in modalità di *congestion avoidance*.
+
+#### congestion avoidance
+
+quando tcp entra nello stato di congestion avoidance (*prevenzione della congestione*), il valore di $cwnd$ è circa al metà di quello che aveva l'ultima volta in cui era stata rilevata la congestione. quindi, invece di raddoppiare il valore di $cwnd$ ogni $rtt$, tcp addotta un approccio più conservativo, incrementando $cwnd$ di $1\ mss$ ogni $rtt$.
+
+**quando finisce l'incremento lineare?**
+
+l'algoritmo di congestion avoidance, quando si verifica un timeout, si comporta nello stesso modo di slow start: il valore di $cwnd$ è posto uguale a $1\ mss$ e il valore di $ssthresh$ viene impostato alla metà del valore di $cwnd$ al momento del timeout. infine, tcp entra nello stato di *fast recovery*.
+
+#### fast recovery
+
+durante la fase di fast recovery (*recupero veloce*) il valore di $cwnd$ è incrementato di $1\ mss$ per ogni ack duplicato ricevuto relativamente al segmento perso che ha causato l'entrata tcp in fast recovery. infine quando arriva un ack per il segmento perso, tcp entra nello stato di congestion avoidance dopo aver ridotto il valore di $cwnd$. se si verifica un timeout, vi è invece una transizione dallo stato di fast recovery a quello di slow start. 
+
+la prima versione di tcp, nota come **tcp tahoe** portava in modo incondizionato la finestra di congestione a $1\ mss$ ed entrava nello stato di slow start dopo qualsiasi evento di perdita.
+
+la versione più recente, **tcp reno**, adotta invece fast recovery.
+
+<img src="img/fsm_congestione_tcp.png" width="300">
+
+#### aimd
+
+il controllo di congestione di tcp è spesso indicato come una forma di controllo di congestione **incremento additivo, decrementato moltiplicativo (aimd)**. aimd dà luogo al comportamento a dente di sega. tcp incrementa linearmente l'ampiezza della propria finestra di gestione e quindi della velocità di trasmissione, finché si verifica un evento di triplice ack duplicato. quindi decrementa la propria finestra di congestione di un fattore due, ma riprende ancora a crescere linearmente per capire se ci sia ulteriore ampiezza di banda disponibile.
+
+#### tcp cubic
+
+ci viene spontaneo chiederci se esite un modo migliore per "sondare" ovvero per determinare una velocità di trasmissione dei pacchetti appena inferiore alla soglia di attivazione della perdita dei pacchetti.
+
+tcp cubic differisce solo leggermente da tcp reno. la finestra di congestione viene aumentata solo alla ricezione di un ack e nelle fasi di slow start e fast recovery rimane la stessa. cubic modifica solo la fase di congestion avoidance in questo modo:
+
+- $w_{max}$: la dimensione della finestra del controllo di congestione tcp nell'istante in cui viene rivelata l'ultima perdita.
+- $k$: istante nel fututo in cui la finestra tcp raggiungerà nuovamente $w_{max}$.
+- cubic aumenta la finestra di congestione ($w$) in funzione del **cubo** della distanza tra l'istante corrente $t$ e $k$.
+  - aumenti maggiori quando ci si allontana maggiormente da $k$.
+  - aumenti minori quando ci si avvicina a $k$.
+
+tcp cubic predefinito in linux è il tcp più diffuso per i web server più comuni.
+
+#### throughput di tcp
+
+qual è il valore medio di throughput di tcp reno? ignorando la fase di slow start abbiamo che:
+
+- $w$: dimensione (ampiezza) in $byte$ della finestra quando si verifica una perdità. la dimesione media è $0.75\cdot w$
+- il throughput medio è quindi $\frac{0.75\cdot w}{rtt}$
+
+#### explicit congestion notification (ecn)
+
+le implementazioni di tcp spesso implementano un controllo della congestione **assistito dalla rete**. 
+
+**come funziona?**
+
+a livello di rete vengono utilizzati due bit (quindi 4 possibili valori) nel campo *tos (type of service)* nell'intestazione ip. se un router è congestionato imposta tali bit e invia il pacchetto ip contrassegnato al destinatario, che quindi informa il mittente.
+
+<img src="img/ecn.png" width="300" />
+
+i bit ecn vengono inolte utilizzati dal mittente per segnalare che mittente e destinatario sono abilitati all'uso di ecn. quando il destinario tcp riceve un'indicazione di congestione ecn, ne informa il mittente tcp impostando il bit ece (explicit congestion notification echo) all'interno di un segmento ack. il mittente tcp reagisce dimezzando la finestra di congestione, esattamente come farebbe in caso di perdita di un segmento usando il meccanismo di ritrasmissione rapida, e imposta il bit cwr (congestion window reduced) nell'intestazione del successivo segmento che invia al ricevente.
+
+#### controllo di congestione basato sul ritardo
+
+se ecn notifica in anticipo il destinatario prima che i buffer sono pieni per evitare la congestione, il secondo approccio basato sul ritardo rileva l'insorgenza della congestione in modo proattivo, prima che si verifichi la perdita di pacchetti.
+
+questo approccio si basa su tcp vegas, dove il mittente misura l'rtt del percoso dalla sorgente alla destinazione per tutti i pacchetti riscontrati. 
+- $rtt_{min}$: il valore minimo di tali misurazione per tutti i pacchetti riscontrati.
+- $\frac{cwnd}{rtt_{min}}$: throughput non congestionato con finestra di congestione $cwnd$.
+
+- se il throughput misurato è "molto vicino" al throughput non congestionato allora bisogna aumentare linearmente $cwnd$.
+- se il throughput misurato è "molto inferiore" al throughput non congestionato allora bisogna diminuire linearmente $cwnd$.
+
+quindi, tcp vegas opera con l'idea "keep the pipe just full, not fuller", ovvero massimizzare il throughput mantendo il ritardo basso.
+
+il protocollo bbr è utilzzato da google e si basa su tcp vegas.
+
+#### tcp fairness e collegamento "collo di bottiglia" congestionato
+
+tcp aumenta la velocità di invio finché non si verifica una perdita di pacchetti all'uscita di un router, tale collegamento è detto **collegamento "collo di bottiglia" (bottleneck)**.
+
+**tcp fairness**: se $k$ sessioni tcp condividono lo stesso collegamento a collo di bottiglia con larghezza di banda $r$, ciascuna dovrebbe avere una velocità media $\frac{r}{k}$.
+
+tcp è fair se le connessioni tcp hanno tutte lo stesso $rtt$ e se il numero di sessioni in congestion avoidance è fisso.
+
+**udp è fair?**
+
+abbiamo appena visto come il meccanismo della finestra di congestione consenta al controllo di congestione tcp di regolare il tasso di trasmissione (transmission rate) delle applicazioni. questo è il motivo per cui molte applicazioni multimediali, quali la fonia e la videoconferenza, non fanno uso di tcp: non vogliono che il loro tasso di trasmissione venga ridotto, anche se la rete è molto congestionata. piuttosto, queste applicazioni preferiscono utilizzare udp, che non incorpora il controllo di congestione, in modo da poter immettere il proprio audio e video sulla rete a frequenza costante e occasionalmente perdere pacchetti, piuttosto che non perderli, ma dover ridurre il loro tasso di trasmissione a livelli “equi” nei momenti di traffico. dal punto di vista di tcp, le applicazioni multimediali che fanno uso di udp non sono fair.
+
+### evoluzione dei protocolli di trasporto
+
+abbiamo visto che i principali protolli di trasporto sono udp e tcp, ma nel corso degli anni sono state sviluppate diverse versioni di tcp, in base alle esigenze e per scenari specifici.
+
+| scenario                                   | sfide                                                        |
+| ------------------------------------------ | ------------------------------------------------------------ |
+| trasferimenti di dati di grandi dimensioni | molti pacchetti in "volo"; la perdita interrompe la pipeline |
+| reti wireless                              | perdita dovuta a collegamenti wireless rumorosi              |
+| long-delay links                           | rtt estremamente elevato                                     |
+| reti di data center                        | sensibilità alla lateza                                      |
+| background traffic flows                   | flussi tcp a bassa priorità (in background)                  |
+
+#### quic: quick udp internet connections
+
+quic è un nuovo protocollo a livello di applicazione, progettato da zero, per migliorare le prestazioni del livello di trasporto per
+http sicuro. quic utilizza udp come protocollo del livello di trasporto sottostante ed è progettato per interfacciarsi in modo specifico a una versione semplificata, ma evoluta, di http/2. prossimamente, http/3 incorporerà nativamente quic.
+
+<img src="img/quic.png" width="300" />
+
+**caratteristiche di quic**
+
+- *orientato alla connessione*. come tcp, quic richiede una fase di handshaking tra gli endpoint per impostare lo stato della connessione. tutti i pacchetti quic sono crittografati e, quic combina l'handshaking necessario per stabilire la connessione con quelli per l'autenticazione e la cifratura.
+- *flussi (streams)*. quic consente il multiplexing di diversi “flussi” a livello di applicazione attraverso una singola connessione quic; inoltre, una volta stabilita una connessione quic, nuovi flussi possono essere aggiunti rapidamente. un flusso è un’astrazione per la consegna bidirezionale affidabile e in ordine dei dati tra due endpoint quic.
+- *trasferimento dati affidabile e con controllo della congestione*. quic fornisce un trasferimento dati affidabile a ogni
+flusso quic separatamente. gli algoritmi di trasferimento dati affidabile e di controllo della congestione sono molto simili a quelli usati da tcp.
