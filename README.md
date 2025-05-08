@@ -73,14 +73,15 @@ Per la consegna dei problemi, dovrete comprimere le vostre soluzioni all'interno
 
 # Problemi
 
-[[problemi/00/README|Problema 0]]   🔥
-[[problemi/01/README|Problema 1]]   🔥🔥
-[[problemi/02/README|Problema 2]]   🔥🔥
-[[problemi/03/README|Problema 3]]   🔥🔥🔥
-[[problemi/04/README|Problema 4]]   🔥🔥🔥
-[[problemi/05/README|Problema 5]]   🔥🔥🔥🔥
-[[problemi/06/README|Problema 6]]   🔥🔥🔥
-[[problemi/07/README|Problema 7]]   🔥🔥🔥🔥
-[[problemi/08/README|Problema 8]]   🔥🔥🔥🔥🔥
-[[problemi/09/README|Problema 9]]   🔥🔥🔥🔥🔥
-[[problemi/10/README|Problema 10]] 🔥🔥🔥🔥🔥🔥
+
+- [Problema 0](problemi/00/README.md) 🔥
+- [Problema 1](problemi/01/README.md) 🔥🔥
+- [Problema 2](problemi/02/README.md) 🔥🔥
+- [Problema 3](problemi/03/README.md) 🔥🔥🔥
+- [Problema 4](problemi/04/README.md) 🔥🔥🔥
+- [Problema 5](problemi/05/README.md) 🔥🔥🔥🔥
+- [Problema 6](problemi/06/README.md) 🔥🔥🔥
+- [Problema 7](problemi/07/README.md) 🔥🔥🔥🔥
+- [Problema 8](problemi/08/README.md) 🔥🔥🔥🔥🔥
+- [Problema 9](problemi/09/README.md) 🔥🔥🔥🔥🔥
+- [Problema 10](problemi/10/README.md) 🔥🔥🔥🔥🔥🔥
