@@ -3,10 +3,15 @@
 # Introduzione 
 
 >Franchino quest'anno si è laureato, 
+
 >a dir poco è stato molto fortunato, 
+
 >delle lezioni si è sempre dimenticato, 
+
 >ma agli esami il risultato a casa l'ha sempre portato. 
+
 >Adesso in magistrale si è segnato, 
+
 >e prevediamo che pagherà un conto salato... 
 
 Nello specifico: Franchino, uno studente di informatica dell'università di Tor Vergata, è fresco di laurea triennale. La sua decisione è stata quella di continuare a mettere il passamontagna durante gli esami anche in magistrale, in cui però non avrà vita facile. 
