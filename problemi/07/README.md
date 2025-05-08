@@ -34,3 +34,6 @@ Ma lui ha ancora la testa nel cloud, quindi tocca a te aiutarlo a **combinare i 
 ### **Output**
 
 - Un intero: il **costo minimo** per combinare tutti i vagoni in un unico treno.
+
+| [**<**](../06/README.md) | [**Home**](../../README.md) | [**>**](../08/README.md) |
+| :----------------------: | :-------------------------: | :----------------------: |

@@ -22,3 +22,6 @@ Aiuta Franchino a **decifrare la sua matricola** usando la chiave che ha, così 
 ### **Output**:
 
 - Una variabile `str‍` che indica la stringa `text‍` decifrata.
+
+| [**<**](../00/README.md) | [**Home**](../../README.md) | [**>**](../02/README.md) |
+| :----------------------: | :-------------------------: | :----------------------: |

@@ -17,3 +17,5 @@ Ad ogni rettangolo, corrispondeva una domanda: **"Qual è la somma dei numeri co
 
 - Per ogni rettangolo, stampa un intero: la somma degli elementi contenuti all'interno.‌
 
+| [**<**](../03/README.md) | [**Home**](../../README.md) | [**>**](../05/README.md) |
+| :----------------------: | :-------------------------: | :----------------------: |

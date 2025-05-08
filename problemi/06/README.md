@@ -56,3 +56,6 @@ Il⁡⁠ ‍⁢ percorso è disseminato di simboli strani, ognuno con un effet
 ### **Output**
 
 - Un intero: il **numero minimo di minuti** necessari per andare da `S` a `E`, rispettando tutte le regole del sogno.
+
+| [**<**](../05/README.md) | [**Home**](../../README.md) | [**>**](../07/README.md) |
+| :----------------------: | :-------------------------: | :----------------------: |

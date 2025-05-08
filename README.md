@@ -70,3 +70,17 @@ Attenzione: ogni problema ha un *tempo limite* entro il quale la vostra soluzion
 Per la consegna dei problemi, dovrete comprimere le vostre soluzioni all'interno di un file zip denominato `<NOMETEAM>.zip` ed inviarle via e-mail all'indirizzo `info.lab25a@gmail.com`. I file inviati di diverso nome/formato non verranno presi in considerazione.
 
 ***Buon divertimento!*** 
+
+# Problemi
+
+[[problemi/00/README|Problema 0]]   🔥
+[[problemi/01/README|Problema 1]]   🔥🔥
+[[problemi/02/README|Problema 2]]   🔥🔥
+[[problemi/03/README|Problema 3]]   🔥🔥🔥
+[[problemi/04/README|Problema 4]]   🔥🔥🔥
+[[problemi/05/README|Problema 5]]   🔥🔥🔥🔥
+[[problemi/06/README|Problema 6]]   🔥🔥🔥
+[[problemi/07/README|Problema 7]]   🔥🔥🔥🔥
+[[problemi/08/README|Problema 8]]   🔥🔥🔥🔥🔥
+[[problemi/09/README|Problema 9]]   🔥🔥🔥🔥🔥
+[[problemi/10/README|Problema 10]] 🔥🔥🔥🔥🔥🔥

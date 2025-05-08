@@ -32,3 +32,6 @@ Aiuta Franchino a trovare un algoritmo che risolva il problema.‌
 ### **Output**:
 
 - Una variabile `int‍` che identifica la quantità di numeri palindromi considerando `k` e `start`.
+
+| [**<**](../02/README.md) | [**Home**](../../README.md) | [**>**](../04/README.md) |
+| :----------------------: | :-------------------------: | :----------------------: |

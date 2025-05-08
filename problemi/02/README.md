@@ -23,3 +23,6 @@ Franchino, dopo ore di tentativi e distrazioni, si trovò davanti a una stringa 
 ### **Output**:
 
 - Una variabile `int‌` che indica la somma di tutti i risultati delle operazioni $sum$, $mul$ e $con$.
+
+| [**<**](../01/README.md) | [**Home**](../../README.md) | [**>**](../03/README.md) |
+| :----------------------: | :-------------------------: | :----------------------: |

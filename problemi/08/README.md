@@ -41,3 +41,6 @@ Ovviamente, ha un **budget massimo**,‌⁠‍‬ e non può sforarlo neanche di
 
 Franchino sa che non potrà comprarli tutti… ⁡⁠ ‍⁢(forse) ma vuole comunque **giocarsi più titoli possibile**, **senza sforare** il suo budget.  
 Aiutalo a scegliere **quanti giochi per ciascuna saga** potrà riscoprire, in modo da ottimizzare la spesa e ritrovare⁡⁠ ‍⁢ un minimo di pace videoludica prima della prossima sessione.
+
+| [**<**](../07/README.md) | [**Home**](../../README.md) | [**>**](../09/README.md) |
+| :----------------------: | :-------------------------: | :----------------------: |

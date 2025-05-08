@@ -28,3 +28,6 @@ Aiutalo a capire **quante tacche** dovrà fare.
 ### **Output**:
 
 - Un intero: il numero di volte che Franchino si trova in tasca *esattamente* `targetsum` monete prendendo in considerazione tutti i percorsi che può intraprendere.
+
+| [**<**](../04/README.md) | [**Home**](../../README.md) | [**>**](../06/README.md) |
+| :----------------------: | :-------------------------: | :----------------------: |

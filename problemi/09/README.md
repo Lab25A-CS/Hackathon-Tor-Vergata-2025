@@ -44,3 +44,6 @@ Franchino capisce che non è questione di forza, ma di **strategia**: deve scegl
 
 Franchino non ha tempo da perdere. Se sbaglia a scegliere gli interruttori, resta chiuso dentro fino alla sessione invernale.  
 Aiutalo a **far girare la manopola quanto più possibile verso la libertà**!
+
+| [**<**](../08/README.md) | [**Home**](../../README.md) | [**>**](../10/README.md) |
+| :----------------------: | :-------------------------: | :----------------------: |

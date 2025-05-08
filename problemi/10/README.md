@@ -1,5 +1,5 @@
 # Problema 10 (*Franchino e l'arte della selezione strategica*)
-#### Difficoltà: 🔥🔥🔥🔥🔥
+#### Difficoltà: 🔥🔥🔥🔥🔥🔥
 	Se lo fai sei uno forte
 
 Questa⁠ ‍⁡⁠ ‍⁢⁠ ‍⁡⁠ ‍⁢⁠ ‍⁡ volta è⁡⁠ ‍⁡⁠ ‍⁢ diversa. Franchino si⁡⁢⁠ ‍⁡ trova alle⁡⁠ ‍⁢ battute⁢⁠ ‍⁢ finali del corso, ma ha toccato il fondo (accademicamente parlando), e si è finalmente deciso a **studiare⁡⁠ ‍⁢ con criterio**.
@@ -41,3 +41,6 @@ Franchino ha capito una cosa: il segreto dell’università non è sapere tutto,
 Se riesce a risolvere questo problema… magari lo scrive anche nella sua tesi.
 
 **P.S**: La soluzione non deve per forza essere ottima, va bene anche una soluzione approssimata.
+
+| [**<**](../09/README.md) | [**Home**](../../README.md) |
+| :----------------------: | :-------------------------: |
