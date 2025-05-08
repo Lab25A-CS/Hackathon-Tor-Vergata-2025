@@ -2,7 +2,6 @@
 
 # Introduzione 
 
->[!cite] 
 >Franchino quest'anno si è laureato, 
 >a dir poco è stato molto fortunato, 
 >delle lezioni si è sempre dimenticato, 
