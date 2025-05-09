@@ -1,5 +1,6 @@
 # Problema 2 (*Franchino ed il parser ubriaco*)
-#### Difficoltà: 🔥🔥
+| **Difficoltà** | 🔥🔥 |
+|:--------------:|:--:|
 
 "Il codice parla, bisogna solo imparare ad ascoltarlo…" disse il professor Red, mentre proiettava una slide con una formula incomprensibile e sei parentesi‍ maledette non chiuse. Franchino, deciso a capire, si concentrò sul compito. Doveva scrivere un parser per interpretare una stringa con operazioni come `mul(23)`, `sum(145)` o `con(901)`, ma c’era un problema: i numeri non erano separati da virgole e la stringa era infestata da caratteri alfanumerici completamente casuali.
 

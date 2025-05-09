@@ -1,5 +1,6 @@
 # Problema 7 (**Franchino e la passione per TrainVergata**)
-#### Difficoltà:🔥🔥🔥🔥
+| **Difficoltà** | 🔥🔥🔥🔥 |
+|:--------------:|:--:|
 
 Dopo un paio d'anni di crisi nervose, portafogli vuoto e sigarette scroccate, finalmente si vedono un po' di soldi: Franchino ha finalmente trovato lavoro presso TrainVergata.
 Non proprio nel campo della sicurezza informatica o dell’intelligenza artificiale, ma… **ai treni**. Meglio di niente.

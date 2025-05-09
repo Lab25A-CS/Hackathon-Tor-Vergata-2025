@@ -1,17 +1,18 @@
 import os
 
+
 class Solution:
 
-    inputFolder = os.path.join('soluzioni', 'input', '1')
-    outputFolder = os.path.join('soluzioni', 'output', '1')
-    
+    inputFolder = os.path.join("soluzioni", "input", "1")
+    outputFolder = os.path.join("soluzioni", "output", "1")
+
     @staticmethod
     def solve(key: str, text: str) -> str:
-        '''
+        """
         Scrivi la tua soluzione qui
-        '''
+        """
         pass
-        
+
     @staticmethod
     def loadInput(i: int) -> str:
         """
@@ -22,16 +23,15 @@ class Solution:
         files.sort()
 
         with open(os.path.join(Solution.inputFolder, files[i])) as file:
-            string = ''
-            key = ''
+            string = ""
+            key = ""
             for i, line in enumerate(file):
                 if i == 0:
                     key = line.strip()
                 else:
                     string += line
-            
+
         return key, string
-    
 
     @staticmethod
     def loadOutput(i: int) -> str:
@@ -43,7 +43,7 @@ class Solution:
         files.sort()
 
         with open(os.path.join(Solution.outputFolder, files[i])) as file:
-            string = ''
+            string = ""
             for line in file:
                 string += line
         return string

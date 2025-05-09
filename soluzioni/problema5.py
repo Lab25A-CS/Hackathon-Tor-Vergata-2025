@@ -1,17 +1,17 @@
 import os
 
+
 class Solution:
 
-    inputFolder = os.path.join('soluzioni', 'input', '5')
-    outputFolder = os.path.join('soluzioni', 'output', '5')
-    
+    inputFolder = os.path.join("soluzioni", "input", "5")
+    outputFolder = os.path.join("soluzioni", "output", "5")
+
     @staticmethod
     def solve(edges: list[list[str, int, str, str]], targetSum: int) -> int:
-        '''
+        """
         Scrivi la tua soluzione qui
-        '''
+        """
         pass
-        
 
     @staticmethod
     def loadInput(i: int) -> str:
@@ -28,7 +28,7 @@ class Solution:
                 if i == 0:
                     targetSum = int(line.strip())
                 else:
-                    edges.append(line.strip().split(', '))
+                    edges.append(line.strip().split(", "))
         return edges, targetSum
 
     @staticmethod
@@ -43,5 +43,3 @@ class Solution:
         with open(os.path.join(Solution.outputFolder, files[i])) as file:
             for line in file:
                 return int(line.strip())
-
-

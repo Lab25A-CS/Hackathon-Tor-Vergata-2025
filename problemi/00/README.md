@@ -1,5 +1,6 @@
 # Problema 0 (*Franchino ed il primo viaggio indimenticabile*)
-#### Difficoltà 🔥
+| **Difficoltà** | 🔥 |
+|:--------------:|:--:|
 
 Franchino, matricola freschissima dell’università di Tor Vergata, ha deciso di affrontare il suo primo giorno da universitario con stile: niente autobus affollati, niente passaggi, oggi si va **in macchina**. Appena sveglio, mette la felpa di Minecraft più sgargiante che ha, butta lo zaino nel bagagliaio, sale a bordo e... si accorge che la macchina **non ha benzina**.
 

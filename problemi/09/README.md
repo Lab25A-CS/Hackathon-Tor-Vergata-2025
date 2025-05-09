@@ -1,6 +1,7 @@
 # Problema‌⁠‍‬⁡ 9 (**Franchino e la porta del Laboratorio**)
 
-#### Difficoltà 🔥🔥🔥🔥🔥
+| **Difficoltà** | 🔥🔥🔥🔥🔥 |
+|:--------------:|:--:|
 
 ### **Problema‌⁠‍‬ 9 – Franchino e la porta del laboratorio**
 

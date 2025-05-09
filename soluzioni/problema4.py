@@ -8,9 +8,9 @@ class Solution:
 
     @staticmethod
     def solve(matrix: list[list[int]], squares: list[list[int, int, int, int]]) -> list[int]:
-        '''
+        """
         Scrivi la tua soluzione qui
-        '''
+        """
         pass
 
     @staticmethod

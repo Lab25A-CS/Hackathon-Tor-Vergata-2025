@@ -8,9 +8,9 @@ class Solution:
 
     @staticmethod
     def solve(costs: list[int], k: int):
-        '''
+        """
         Scrivi la tua soluzione qui
-        '''
+        """
         pass
 
     @staticmethod

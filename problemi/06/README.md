@@ -1,5 +1,6 @@
 # Problema 6  (*Franchino e l'incubo della falsa laurea*)
-#### Difficoltà: 🔥🔥🔥
+| **Difficoltà** | 🔥🔥🔥 |
+|:--------------:|:--:|
 
 Dopo⁠ ‍⁡⁠ ‍⁢⁠ ‍⁡⁠ ‍⁢⁠ ‍⁡ aver⁡⁠ ‍⁢ passato⁡⁠ ‍⁡ l’intera notte⁡⁠ ‍⁡ a giocare⁢⁠ ‍⁢ a _Portal_ e ad ignorare l'orario delle lezioni⁡⁠ ‍⁡ del giorno dopo, Franchino si addormenta sulla tastiera. Quando riapre gli occhi, si ritrova in una versione distorta della sua città universitaria, un’enorme griglia di strade, corridoi e portali.
 

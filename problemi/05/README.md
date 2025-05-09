@@ -1,5 +1,6 @@
 # Problema 5 (*Franchino ed il filo di Arianna*)
-#### Difficoltà: 🔥🔥🔥🔥
+| **Difficoltà** | 🔥🔥🔥🔥 |
+|:--------------:|:--:|
 
 Nel cuore del dipartimento, tra un esonero a sorpresa e un esercizio lasciato "per casa", il professor Giullà, che punta tantissimo su di lui (nessuno, compreso Franchino stesso, capisce perché), consegnò a Franchino una nuova sfida: un **labirinto**,‌ formato da stanze connesse da **corridoi a senso unico**, che scendevano sempre verso nuovi livelli più profondi.
 

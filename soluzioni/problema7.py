@@ -1,18 +1,18 @@
 import os
-import pprint as pp
+
 
 class Solution:
 
-    inputFolder = os.path.join('soluzioni', 'input', '7')
-    outputFolder = os.path.join('soluzioni', 'output', '7')
-    
+    inputFolder = os.path.join("soluzioni", "input", "7")
+    outputFolder = os.path.join("soluzioni", "output", "7")
+
     @staticmethod
     def solve(wagons: list[tuple[int, int]]) -> int:
-        '''
+        """
         Scrivi la tua soluzione qui
-        '''
+        """
         pass
-    
+
     @staticmethod
     def loadInput(i: int) -> str:
         """
@@ -25,10 +25,10 @@ class Solution:
         with open(os.path.join(Solution.inputFolder, files[i])) as file:
             input = []
             for line in file.readlines():
-                temp = line.strip().split(', ')
+                temp = line.strip().split(", ")
                 input.append(tuple(map(int, temp)))
         return input
-    
+
     @staticmethod
     def loadOutput(i: int) -> str:
         """

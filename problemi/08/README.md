@@ -1,6 +1,7 @@
 # Problema⁡⁠ ‍⁢ 8 (**Franchino e il backlog videoludico**)
 
-#### Difficoltà 🔥🔥🔥🔥🔥
+| **Difficoltà** | 🔥🔥🔥🔥🔥 |
+|:--------------:|:--:|
 
 La sessione⁡⁠ ‍⁡ è finita. Franchino ha collezionato più 18 che CFU, ha sostenuto esami con lo stesso entusiasmo con cui si fa la fila⁡⁠ ‍⁢ in segreteria… e ha deciso che ha **bisogno⁡⁠ ‍⁡ di staccare**.
 

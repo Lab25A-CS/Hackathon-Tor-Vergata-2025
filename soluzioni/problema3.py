@@ -1,18 +1,18 @@
 import os
 import pprint as pp
 
+
 class Solution:
 
-    inputFolder = os.path.join('soluzioni', 'input', '3')
-    outputFolder = os.path.join('soluzioni', 'output', '3')
+    inputFolder = os.path.join("soluzioni", "input", "3")
+    outputFolder = os.path.join("soluzioni", "output", "3")
 
     @staticmethod
     def solve(matrix: list[list[int]], k: int, start: str) -> int:
-        '''
+        """
         Scrivi la tua soluzione qui
-        '''
+        """
         pass
-        
 
     @staticmethod
     def loadInput(i: int) -> str:
@@ -27,14 +27,13 @@ class Solution:
         with open(os.path.join(Solution.inputFolder, files[i])) as file:
             for i, line in enumerate(file):
                 if i == 0:
-                    len, key = line.strip().split(',')
-                else:    
+                    len, key = line.strip().split(",")
+                else:
                     newLine = []
                     for char in line.strip():
                         newLine.append(char)
                     matrix.append(newLine)
         return matrix, int(len), key
-    
 
     @staticmethod
     def loadOutput(i: int) -> int:
@@ -46,7 +45,7 @@ class Solution:
         files.sort()
 
         with open(os.path.join(Solution.outputFolder, files[i])) as file:
-            value = ''
+            value = ""
             for line in file:
                 value += line.strip()
-        return int(value)     
+        return int(value)

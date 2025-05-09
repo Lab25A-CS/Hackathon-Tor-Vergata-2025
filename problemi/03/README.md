@@ -1,5 +1,6 @@
 # Problema 3 (*Franchino ed il cruciverba maledetto*)
-#### Difficoltà: 🔥🔥🔥
+| **Difficoltà** | 🔥🔥🔥 |
+|:--------------:|:--:|
 
 Franchino, con la fronte aggrottata e lo sguardo fisso sul foglio, stava cercando di decifrare un enigma che avrebbe messo alla prova anche il Paroliere. Il professor Red gli aveva dato un compito piuttosto curioso: trovare quanti numeri palindromi di lunghezza **k** iniziavano con un numero **start** in una matrice di numeri da 0 a 9.
 

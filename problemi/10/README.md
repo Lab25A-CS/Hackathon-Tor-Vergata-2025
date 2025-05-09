@@ -1,5 +1,6 @@
 # Problema 10 (*Franchino e l'arte della selezione strategica*)
-#### Difficoltà: 🔥🔥🔥🔥🔥🔥
+| **Difficoltà** | 🔥🔥🔥🔥🔥🔥 |
+|:--------------:|:--:|
 	Se lo fai sei uno forte
 
 Questa⁠ ‍⁡⁠ ‍⁢⁠ ‍⁡⁠ ‍⁢⁠ ‍⁡ volta è⁡⁠ ‍⁡⁠ ‍⁢ diversa. Franchino si⁡⁢⁠ ‍⁡ trova alle⁡⁠ ‍⁢ battute⁢⁠ ‍⁢ finali del corso, ma ha toccato il fondo (accademicamente parlando), e si è finalmente deciso a **studiare⁡⁠ ‍⁢ con criterio**.
