@@ -23,7 +23,7 @@ Il⁡⁠ ‍⁢ percorso è disseminato di simboli strani, ognuno con un effet
     
 - 💀 – **Teschio**: casella⁡⁠ ‍⁢ bloccata, **non può** essere attraversata in nessun modo.
     
-- 🍬 – **Caramella**: Franchino è carico⁡⁠ ‍⁢ di zuccheri e può muoversi liberamente nelle **quattro direzioni cardinali** anche se normalmente sarebbe bloccato.
+- 🍬 – **Caramella**: Franchino è carico⁡⁠ ‍⁢ di zuccheri e può muoversi liberamente oltre che nelle **quattro direzioni cardinali** anche **nelle lungo le 4 diagonali**.
     
 - 🪞 – **Specchio**: confonde le coordinate, Franchino si ritrova in **M[y][x]** anziché M[x][y].
     
