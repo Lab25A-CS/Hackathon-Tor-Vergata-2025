@@ -27,7 +27,7 @@ Il⁡⁠ ‍⁢ percorso è disseminato di simboli strani, ognuno con un effet
     
 - 🪞 – **Specchio**: confonde le coordinate, Franchino si ritrova in **M[y][x]** anziché M[x][y].
     
-- 🠖 , 🠕 , 🠔 , 🠗 – **Freccia direzionale**: lo teletrasporta **fino all’ultima⁡⁠ ‍⁡ cella libera** in quella direzione.
+- 🠖 , 🠕 , 🠔 , 🠗 – **Freccia direzionale**: lo teletrasporta **fino all’ultima⁡⁠ ‍⁡ cella della riga/colonna corrente** nella **direzione puntata dalla freccia**.
     
 - `--` – **Casella normale**: richiede 1 minuto per essere attraversata, si può muovere in direzioni cardinali.
     
