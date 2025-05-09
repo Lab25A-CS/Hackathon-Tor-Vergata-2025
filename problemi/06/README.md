@@ -19,7 +19,7 @@ Il⁡⁠ ‍⁢ percorso è disseminato di simboli strani, ognuno con un effet
     
 - 🏁 – **End**: l’Aula Magna. Il suo traguardo.
     
-- 🍄 – **Fungo**: lo teletrasporta automaticamente **di +2 celle** nella direzione⁡⁠ ‍⁢ in cui è orientato (↑↓←→).
+- 🍄 – **Fungo**: lo teletrasporta **di +2 celle** in una delle 4 direzioni cardinali.
     
 - 💀 – **Teschio**: casella⁡⁠ ‍⁢ bloccata, **non può** essere attraversata in nessun modo.
     
