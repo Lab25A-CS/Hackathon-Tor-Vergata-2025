@@ -5,7 +5,7 @@
 
 La sessione⁡⁠ ‍⁡ è finita. Franchino ha collezionato più 18 che CFU, ha sostenuto esami con lo stesso entusiasmo con cui si fa la fila⁡⁠ ‍⁢ in segreteria… e ha deciso che ha **bisogno⁡⁠ ‍⁡ di staccare**.
 
-Grazie ai soldi guadagnati⁡⁠ ‍⁡ nel suo stage ferroviario (vedi [[problemi/07/README|problema 7]]), ha messo da parte un po’ di budget⁡⁠ ‍⁡ e vuole investirlo come ogni studente stressato farebbe: **comprando videogiochi**.  
+Grazie ai soldi guadagnati⁡⁠ ‍⁡ nel suo stage ferroviario (vedi [**Problema 7**](../07/README.md)), ha messo da parte un po’ di budget⁡⁠ ‍⁡ e vuole investirlo come ogni studente stressato farebbe: **comprando videogiochi**.  
 Ha preso una decisione importante: vuole rigiocarsi **tutta la saga di Assassin’s Creed** _e_ **tutti i Call of Duty**, rigorosamente **in ordine di uscita**.
 
 Ogni gioco ha un **prezzo**, e Franchino può comprarli **solo nell’ordine esatto** delle rispettive serie, senza saltare titoli né mischiarli.  
