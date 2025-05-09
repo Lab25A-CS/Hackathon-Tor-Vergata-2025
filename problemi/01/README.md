@@ -44,8 +44,8 @@ Aiuta Franchino a **decifrare la sua matricola** usando la chiave che ha, così 
 | a + m          | n         |
 | c + x          | a         |
 | k + p          | a         |
-| a + s          | u         |
-| t + a          | t         |
+| a + s          | t         |
+| t + a          | u         |
 | h + l          | t         |
 | o + e          | t         |
 | n + u          | i         |
